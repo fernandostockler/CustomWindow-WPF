@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Death Star - 1st %282015_09_19 07_11_09 UTC%29.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CustomWindow-WPF\CustomWindow-WPF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Death Star - 1st (2015_09_19 07_11_09 UTC).ico" />
   </ItemGroup>
 
 </Project>

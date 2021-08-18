@@ -29,7 +29,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="MissingTemplatePartException"/> class.
         /// </summary>
-        /// <param name="message">The message<see cref="string?"/>.</param>
+        /// <param name="message">The message<see cref="Nullable{String}"/>.</param>
         public MissingTemplatePartException(string? message) : base(message)
         {
         }
@@ -48,8 +48,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="MissingTemplatePartException"/> class.
         /// </summary>
-        /// <param name="message">The message<see cref="string?"/>.</param>
-        /// <param name="innerException">The innerException<see cref="Exception?"/>.</param>
+        /// <param name="message">The message<see cref="Nullable{String}"/>.</param>
+        /// <param name="innerException">The innerException<see cref="Nullable{Exception}"/>.</param>
         public MissingTemplatePartException(string? message, Exception? innerException) : base(message, innerException)
         {
         }

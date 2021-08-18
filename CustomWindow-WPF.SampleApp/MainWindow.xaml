@@ -6,6 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CustomWindow_WPF.SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="customWindow" Background="DarkSlateGray"
     Width="800"
     Height="450"
-    mc:Ignorable="d" />
+    CustomDialogBackground="#FFDC6522"
+    Icon="/Death Star - 1st (2015_09_19 07_11_09 UTC).ico"
+    mc:Ignorable="d">
+    <cw:CustomWindow.IconArea>
+        <Image Source="{Binding Icon, ElementName=customWindow}" Margin="3" />
+    </cw:CustomWindow.IconArea>
+</cw:CustomWindow>
