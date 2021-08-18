@@ -8,5 +8,4 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="800"
     Height="450"
-    mc:Ignorable="d">
-</cw:CustomWindow>
+    mc:Ignorable="d" />

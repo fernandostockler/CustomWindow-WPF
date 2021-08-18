@@ -6,7 +6,7 @@
 
     <system:Double x:Key="WindowCaptionButtonWidth">46.0</system:Double>
 
-    <shared:DoubleToGridlenghtConverter x:Key="DoubleToGridlenghtConverter" />
+    <local:DoubleToGridlenghtConverter x:Key="DoubleToGridlenghtConverter" />
 
     <Style x:Key="WindowButtonsStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
@@ -51,10 +51,9 @@
         </Setter>
     </Style>
 
-    <Style
-    x:Key="CloseButtonStyle"
-    BasedOn="{StaticResource WindowButtonsStyle}"
-    TargetType="Button">
+    <Style x:Key="CloseButtonStyle"
+        BasedOn="{StaticResource WindowButtonsStyle}"
+        TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -101,10 +100,10 @@
                 <ControlTemplate TargetType="{x:Type local:CustomWindow}">
                     <Border Padding="10">
                         <Grid>
-                            <!--  Opacity Mask for corners on grid  -->
+                              <!--Opacity Mask for corners on grid-->
                             <Border x:Name="Container" CornerRadius="10" />
 
-                            <!--  Window border and dropshadow  -->
+                              <!--Window border and dropshadow-->
                             <Border Background="{TemplateBinding Background}" CornerRadius="10">
                                 <Border.Effect>
                                     <DropShadowEffect Opacity="0.2" ShadowDepth="5" />
@@ -118,7 +117,7 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="10"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                                <!--  Corner Clipping  -->
+                                  <!--Corner Clipping-->
                                 <Border.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=Container}" />
                                 </Border.OpacityMask>
