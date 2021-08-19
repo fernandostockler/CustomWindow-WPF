@@ -7,15 +7,16 @@
     xmlns:local="clr-namespace:CustomWindow_WPF.SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="customWindow"
-    Width="800"
     Title="Custom window"
+    Width="800"
     Height="450"
     Background="Silver"
     BorderThickness="0"
     Icon="/Death Star - 1st (2015_09_19 07_11_09 UTC).ico"
-    mc:Ignorable="d" TitleBarHeight="46">
+    TitleBarHeight="46"
+    mc:Ignorable="d">
     <cw:CWindow.IconArea>
         <Image Margin="3" Source="{Binding Icon, ElementName=customWindow}" />
     </cw:CWindow.IconArea>
-    <Grid Background="Crimson"></Grid>
+    <Grid Background="Crimson" />
 </cw:CWindow>

@@ -90,7 +90,7 @@
 
     <SolidColorBrush x:Key="InactiveForegroundBrush" Color="#FFB0B0B0" />
 
-    <ControlTemplate x:Key="CustomWindowTemplate" TargetType="{x:Type local:CustomWindow}">
+    <ControlTemplate x:Key="CustomWindow1Template" TargetType="{x:Type local:CustomWindow1}">
         <Border
             x:Name="OutterBorder"
             Margin="{TemplateBinding Margin}"
@@ -280,7 +280,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="local:CustomWindow">
+    <Style TargetType="local:CustomWindow1">
         <Setter Property="Background" Value="White" />
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="BorderThickness" Value="1" />
@@ -530,4 +530,25 @@
         <Setter Property="Template" Value="{StaticResource CWindowTemplate}" />
     </Style>
 
+
+    <Style TargetType="{x:Type local:CustomWindow}">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome
+                    CaptionHeight="42.0"
+                    CornerRadius="0"
+                    ResizeBorderThickness="6" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CustomWindow}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
