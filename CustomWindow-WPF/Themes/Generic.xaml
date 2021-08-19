@@ -530,23 +530,74 @@
         <Setter Property="Template" Value="{StaticResource CWindowTemplate}" />
     </Style>
 
+    <CornerRadius
+        x:Key="WindowCornerRadius"
+        BottomLeft="10"
+        BottomRight="10"
+        TopLeft="10"
+        TopRight="10" />
 
     <Style TargetType="{x:Type local:CustomWindow}">
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="AllowsTransparency" Value="True" />
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome
                     CaptionHeight="42.0"
-                    CornerRadius="0"
+                    CornerRadius="10"
                     ResizeBorderThickness="6" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:CustomWindow}">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}" />
+                    <Border>
+                        <Grid>
+                            <!--  Opacity Mask for corners on grid  -->
+                            <Border
+                                x:Name="Container"
+                                Background="{TemplateBinding TitleBarBackground}"
+                                CornerRadius="{StaticResource WindowCornerRadius}" />
+
+                            <!--  Window border and dropshadow  -->
+                            <Border
+                                Background="{TemplateBinding TitleBarBackground}"
+                                CornerRadius="{StaticResource WindowCornerRadius}">
+                                <Border.Effect>
+                                    <DropShadowEffect Opacity="0.2" ShadowDepth="5" />
+                                </Border.Effect>
+                            </Border>
+
+                            <Border CornerRadius="{StaticResource WindowCornerRadius}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                                <Border.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=Container}" />
+                                </Border.OpacityMask>
+                                <Grid x:Name="rootLayout">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition x:Name="TitleBarRow" Height="{TemplateBinding TitleBarHeight, Converter={StaticResource DoubleToGridlenghtConverter}}" />
+                                        <RowDefinition x:Name="ClientAreaRow" />
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="0">
+                                        <TextBlock Text="Title" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Margin="3,0,0,0"/>
+                                    </Border>
+
+                                    <Border x:Name="InnerContentBorder"
+                                        Grid.Row="1"
+                                        Margin="0,-0.6,0,0"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="0,0,10,10">
+                                        <Grid x:Name="ContentGrid">
+                                            <AdornerDecorator>
+                                                <ContentPresenter Content="{TemplateBinding Content}" />
+                                            </AdornerDecorator>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
