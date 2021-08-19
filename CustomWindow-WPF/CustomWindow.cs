@@ -9,8 +9,26 @@ using System.Windows;
     public class CustomWindow : Window
     {
         private double OriginalTitleBarHeight = 42.0;
-
         private const string ClassName = nameof(CustomWindow);
+        private enum TaskbarPosition
+        {
+            None,
+            Top,
+            Left,
+            Bottom,
+            Right
+        }
+
+        private static readonly Thickness NormalThickness = new(0);
+
+        private static double WindowsTaskbarHeight
+            => SystemParameters.PrimaryScreenHeight
+            - SystemParameters.FullPrimaryScreenHeight
+            - SystemParameters.WindowCaptionHeight;
+
+        private static double WindowsTaskbarWidth
+            => SystemParameters.PrimaryScreenWidth
+            - SystemParameters.FullPrimaryScreenWidth;
 
         /// <summary>
         /// The default value for ResizeBorderThickness dependency property.
@@ -24,7 +42,70 @@ using System.Windows;
 
         public CustomWindow()
         {
+            //WindowStyle = WindowStyle.None;
+            //AllowsTransparency = true;
             Loaded += CustomWindow_Loaded;
+            StateChanged += CustomWindow_StateChanged;
+        }
+
+        private void CustomWindow_StateChanged(object? sender, System.EventArgs e)
+        {
+            //TODO: sem efeito.
+
+            Margin = WindowState == WindowState.Maximized ? GetMaximazedThickness() : NormalThickness;
+
+            Thickness GetMaximazedThickness()
+            {
+                Thickness resizeBorderThickness = WindowChrome.GetWindowChrome(this).ResizeBorderThickness;
+
+                Thickness thickness = new(
+                    left: resizeBorderThickness.Left + BorderThickness.Left,
+                    top: resizeBorderThickness.Top + BorderThickness.Top,
+                    right: resizeBorderThickness.Right + BorderThickness.Right,
+                    bottom: resizeBorderThickness.Bottom + BorderThickness.Bottom);
+
+                switch ( GetTaskbarPosition() )
+                {
+                    case TaskbarPosition.Top:
+                        thickness.Top += WindowsTaskbarHeight;
+                        break;
+                    case TaskbarPosition.Left:
+                        thickness.Left += WindowsTaskbarWidth;
+                        break;
+                    case TaskbarPosition.Bottom:
+                        thickness.Bottom += WindowsTaskbarHeight;
+                        break;
+                    case TaskbarPosition.Right:
+                        thickness.Right += WindowsTaskbarWidth;
+                        break;
+                    case TaskbarPosition.None:
+                        break;
+                    default:
+                        break;
+                }
+                return thickness;
+            }
+
+            TaskbarPosition GetTaskbarPosition()
+            {
+                if ( SystemParameters.WorkArea.Top > 0 )
+                {
+                    return TaskbarPosition.Top;
+                }
+                else if ( SystemParameters.WorkArea.Left > 0 )
+                {
+                    return TaskbarPosition.Left;
+                }
+                else if ( WindowsTaskbarWidth == 0 )
+                {
+                    return TaskbarPosition.Bottom;
+                }
+                else if ( WindowsTaskbarHeight < WindowChrome.GetWindowChrome(this).CaptionHeight )
+                {
+                    return TaskbarPosition.Right;
+                }
+                return TaskbarPosition.None;
+            }
         }
 
         private void CustomWindow_Loaded(object sender, RoutedEventArgs e)
@@ -114,6 +195,29 @@ using System.Windows;
                 ResizeBorderThickness = new Thickness(ResizeBorderThicknessDefaultValue)
             });
         }
+
+        /// <summary>
+        /// Gets or sets the window's corner radius.
+        /// </summary>
+        [Category(ClassName)]
+        [Description("Gets or sets the window's corner radius.")]
+        public CornerRadius CornerRadius
+        {
+            get => (CornerRadius)GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
+        }
+
+        /// <summary>
+        /// Identifies the <see cref="CornerRadius"/> dependency property.
+        /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="CornerRadius"/> dependency property.
+        /// </returns>
+        public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register(
+            name: nameof(CornerRadius),
+            propertyType: typeof(CornerRadius),
+            ownerType: typeof(CustomWindow),
+            typeMetadata: new PropertyMetadata(defaultValue: new CornerRadius(5)));
 
         /// <summary>
         /// Gets or sets a brush that describes the foreground color of the window's title bar. Automatically calculated by OnTitleBarBackgroundChanged(d, e) when TitleBarForegroundIsAutomated is true.

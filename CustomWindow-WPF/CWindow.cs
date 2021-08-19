@@ -282,7 +282,7 @@
 
         private void CWindow_StateChanged(object sender, EventArgs e)
         {
-            bool WindowStateIsNormal = (WindowState == WindowState.Normal);
+            bool WindowStateIsNormal = WindowState == WindowState.Normal;
             MaximizeRestoreButton.Content = WindowStateIsNormal ? RestoreGlyph : MaximizeGlyph;
             MaximizeRestoreButton.ToolTip = WindowStateIsNormal ? MaximizeToolTip : RestoreToolTip;
             // Corrige o problema que ocorre quando a janela é maximizada
