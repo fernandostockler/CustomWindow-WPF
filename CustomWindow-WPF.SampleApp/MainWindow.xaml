@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:CustomWindow_WPF.SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="customWindow"
-    Width="800" CornerRadius="3"
+    Width="800"
     Title="Custom window"
     Height="450"
     Background="Silver"

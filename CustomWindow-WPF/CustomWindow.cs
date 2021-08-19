@@ -123,11 +123,11 @@
         /// <exception>
         /// cref="Error MC3080  The property 'CustomWindow.WindowStyle' cannot be set because it does not have an accessible set accessor."
         /// </exception>
-        public new WindowStyle WindowStyle
-        {
-            get => (WindowStyle)GetValue(WindowStyleProperty);
-            private set => SetValue(WindowStyleProperty, value);
-        }
+        //public new WindowStyle WindowStyle
+        //{
+        //    get => (WindowStyle)GetValue(WindowStyleProperty);
+        //    private set => SetValue(WindowStyleProperty, value);
+        //}
 
         /// <summary>
         /// Shadows the AllowsTransparency property to prevent it from being changed from AllowTransparency = True.
@@ -138,11 +138,11 @@
         /// <exception>
         /// cref="Error MC3080  The property 'CustomWindow.AllowsTransparency' cannot be set because it does not have an accessible set accessor."
         /// </exception>
-        public new bool AllowsTransparency
-        {
-            get => (bool)GetValue(AllowsTransparencyProperty);
-            private set => SetValue(AllowsTransparencyProperty, value);
-        }
+        //public new bool AllowsTransparency
+        //{
+        //    get => (bool)GetValue(AllowsTransparencyProperty);
+        //    private set => SetValue(AllowsTransparencyProperty, value);
+        //}
 
         /// <summary>
         /// Gets or sets a Boolean value representing whether KioskMode is turned on/off.
