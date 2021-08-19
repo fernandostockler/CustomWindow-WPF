@@ -6,25 +6,34 @@
     using System.Runtime.Serialization;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Shell;
 
     /// <summary>
-    /// Defines the <see cref="CustomWindow" />.
+    /// CustomWindow é uma janela que permite a personalização da área não-cliente, possuí um modo kiosk e tem um mecanismo para exibição de conteúdo modal.
     /// </summary>
+    /// <remarks>
+    /// A barra de título foi dividida em quatro regiões: Icone, entre o icone e o título e depois do título e antes dos botões da janela.
+    /// Para interagir com estes elementos na área não-cliente acrescente o atributo <c>WindowChrome.IsHitTestVisibleInChrome="True"</c>.
+    /// </remarks>
+    [TemplatePart(Name = PART_Icon, Type = typeof(ContentControl))]
+    [TemplatePart(Name = PART_LeftArea, Type = typeof(ContentControl))]
+    [TemplatePart(Name = PART_Title, Type = typeof(ContentControl))]
+    [TemplatePart(Name = PART_RightArea, Type = typeof(ContentControl))]
+    [TemplatePart(Name = PART_MinimizeButton, Type = typeof(ButtonBase))]
+    [TemplatePart(Name = PART_MaximizeRestoreButton, Type = typeof(ButtonBase))]
+    [TemplatePart(Name = PART_CloseButton, Type = typeof(ButtonBase))]
     public partial class CustomWindow : Window
     {
-        /// <summary>
-        /// Initializes static members of the <see cref="CustomWindow"/> class.
-        /// </summary>
         static CustomWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomWindow), new FrameworkPropertyMetadata(typeof(CustomWindow)));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CustomWindow"/> class.
+        /// Public constructor
         /// </summary>
         public CustomWindow()
         {
@@ -38,11 +47,6 @@
             _ = CommandBindings.Add(new CommandBinding(SystemCommands.MinimizeWindowCommand, MinimizeWindow, CanMinimizeWindow));
         }
 
-        /// <summary>
-        /// The CustomWindow_Loaded.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="RoutedEventArgs"/>.</param>
         private void CustomWindow_Loaded(object sender, RoutedEventArgs e)
         {
             OriginalTitleBarHeight = TitleBarHeight;
@@ -105,34 +109,58 @@
         }
 
         /// <summary>
-        /// Sets CustomDialog visibility to Visibility.Collapsed.
+        /// Sets CustomDialog visibility to Visibility.Collapsed
         /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="RoutedEventArgs"/>.</param>
+        /// <remarks>
+        /// This event handler is only used thru GetDefaultCustomDialog() function.
+        /// </remarks>
         private void CustomDialogEnterButton_Click(object sender, RoutedEventArgs e) => ShowCustomDialog = false;
 
         /// <summary>
-        /// Gets the WindowStyle.
-        /// </summary>
-        public new WindowStyle WindowStyle { get => (WindowStyle)GetValue(WindowStyleProperty); private set => SetValue(WindowStyleProperty, value); }
+        /// Shadows the WindowStyle property to prevent it from being changed from WindowStyle.None . </summary>
+        /// <remarks>
+        /// Any attempt to modify this property will launch an exception: </remarks>
+        /// <exception>
+        /// cref="Error MC3080  The property 'CustomWindow.WindowStyle' cannot be set because it does not have an accessible set accessor."
+        /// </exception>
+        public new WindowStyle WindowStyle
+        {
+            get => (WindowStyle)GetValue(WindowStyleProperty);
+            private set => SetValue(WindowStyleProperty, value);
+        }
 
         /// <summary>
-        /// Gets a value indicating whether AllowsTransparency
-        /// Shadows the AllowsTransparency property to prevent it from being changed from AllowTransparency = True..
+        /// Shadows the AllowsTransparency property to prevent it from being changed from AllowTransparency = True.
         /// </summary>
-        public new bool AllowsTransparency { get => (bool)GetValue(AllowsTransparencyProperty); private set => SetValue(AllowsTransparencyProperty, value); }
+        /// <remarks>
+        /// Any attempt to modify this property will launch an exception:
+        /// </remarks>
+        /// <exception>
+        /// cref="Error MC3080  The property 'CustomWindow.AllowsTransparency' cannot be set because it does not have an accessible set accessor."
+        /// </exception>
+        public new bool AllowsTransparency
+        {
+            get => (bool)GetValue(AllowsTransparencyProperty);
+            private set => SetValue(AllowsTransparencyProperty, value);
+        }
 
         /// <summary>
-        /// Gets or sets a value indicating whether KioskMode
-        /// Gets or sets a Boolean value representing whether KioskMode is turned on/off..
+        /// Gets or sets a Boolean value representing whether KioskMode is turned on/off.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets a Boolean value representing whether KioskMode is turned on/off.")]
-        public bool KioskMode { get => (bool)GetValue(KioskModeProperty); set => SetValue(KioskModeProperty, value); }
+        public bool KioskMode
+        {
+            get => (bool)GetValue(KioskModeProperty);
+            set => SetValue(KioskModeProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="KioskMode"/> dependency property..
+        /// Identifies the <see cref="KioskMode"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="KioskMode"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty KioskModeProperty =
             DependencyProperty.Register(
                 name: nameof(KioskMode),
@@ -146,15 +174,8 @@
                         customWindow.OnKioskModeChanged(newValue);
                     }));
 
-        /// <summary>
-        /// Defines the OriginalTitleBarHeight.
-        /// </summary>
         private double OriginalTitleBarHeight = 42.0;
 
-        /// <summary>
-        /// The OnKioskModeChanged.
-        /// </summary>
-        /// <param name="newValue">The newValue<see cref="bool"/>.</param>
         private void OnKioskModeChanged(bool newValue)
         {
             if ( IsLoaded == false )
@@ -178,16 +199,22 @@
         }
 
         /// <summary>
-        /// Gets or sets the KioskModeExitKeyGesture
-        /// Gets or sets a key combination that turns off kiosk mode..
+        /// Gets or sets a key combination that turns off kiosk mode.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets a key combination that turns off kiosk mode.")]
-        public KioskExitKeyGesture KioskModeExitKeyGesture { get => (KioskExitKeyGesture)GetValue(KioskModeExitKeyGestureProperty); set => SetValue(KioskModeExitKeyGestureProperty, value); }
+        public KioskExitKeyGesture KioskModeExitKeyGesture
+        {
+            get => (KioskExitKeyGesture)GetValue(KioskModeExitKeyGestureProperty);
+            set => SetValue(KioskModeExitKeyGestureProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="KioskModeExitKeyGesture"/> dependency property..
+        /// Identifies the <see cref="KioskModeExitKeyGesture"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="KioskModeExitKeyGesture"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty KioskModeExitKeyGestureProperty =
             DependencyProperty.Register(
                 name: nameof(KioskModeExitKeyGesture),
@@ -197,16 +224,22 @@
                     defaultValue: new KioskExitKeyGesture(Key.End, new ModifierKeys[] { ModifierKeys.Shift, ModifierKeys.Alt })));
 
         /// <summary>
-        /// Gets or sets the MinTitleBarHeight
-        /// Gets or sets a double value representing the minimum title bar's height..
+        /// Gets or sets a double value representing the minimum title bar's height.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets a double value representing the minimum title bar's height.")]
-        public double MinTitleBarHeight { get => (double)GetValue(MinTitleBarHeightProperty); set => SetValue(MinTitleBarHeightProperty, value); }
+        public double MinTitleBarHeight
+        {
+            get => (double)GetValue(MinTitleBarHeightProperty);
+            set => SetValue(MinTitleBarHeightProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="MinTitleBarHeight"/> dependency property..
+        /// Identifies the <see cref="MinTitleBarHeight"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="MinTitleBarHeight"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty MinTitleBarHeightProperty =
             DependencyProperty.Register(
                 name: nameof(MinTitleBarHeight),
@@ -215,15 +248,22 @@
                 typeMetadata: new PropertyMetadata(36.0));
 
         /// <summary>
-        /// Gets or sets the height of the title bar (non-client area)..
+        /// Gets or sets the height of the title bar (non-client area).
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets the height of the title bar (non-client area).")]
-        public double TitleBarHeight { get => (double)GetValue(TitleBarHeightProperty); set => SetValue(TitleBarHeightProperty, value); }
+        public double TitleBarHeight
+        {
+            get => (double)GetValue(TitleBarHeightProperty);
+            set => SetValue(TitleBarHeightProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleBarHeight"/> dependency property..
+        /// Identifies the <see cref="TitleBarHeight"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleBarHeight"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty TitleBarHeightProperty =
             DependencyProperty.Register(
                 name: nameof(TitleBarHeight),
@@ -252,14 +292,10 @@
                     });
 
         /// <summary>
-        /// The default value for ResizeBorderThickness dependency property..
+        /// The default value for ResizeBorderThickness dependency property.
         /// </summary>
         protected const int ResizeBorderThicknessDefaultValue = 6;
 
-        /// <summary>
-        /// The OnTitleBarHeightChanged.
-        /// </summary>
-        /// <param name="newValue">The newValue<see cref="double"/>.</param>
         private void OnTitleBarHeightChanged(double newValue)
         {
             WindowChrome.SetWindowChrome(this, new WindowChrome()
@@ -271,15 +307,22 @@
         }
 
         /// <summary>
-        /// Gets or sets the FrameworkElement located to the left of the title bar..
+        /// Gets or sets the FrameworkElement located to the left of the title bar.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets the FrameworkElement located to the left of the title bar.")]
-        public FrameworkElement IconArea { get => (FrameworkElement)GetValue(IconAreaProperty); set => SetValue(IconAreaProperty, value); }
+        public FrameworkElement IconArea
+        {
+            get => (FrameworkElement)GetValue(IconAreaProperty);
+            set => SetValue(IconAreaProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="IconArea"/> dependency property..
+        /// Identifies the <see cref="IconArea"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="IconArea"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty IconAreaProperty =
             DependencyProperty.Register(
                 name: nameof(IconArea),
@@ -289,15 +332,22 @@
                     defaultValue: null));
 
         /// <summary>
-        /// Gets or sets the FrameworkElement located in the left part of the title bar, just after the IconArea..
+        /// Gets or sets the FrameworkElement located in the left part of the title bar, just after the IconArea.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets the FrameworkElement located in the left part of the title bar, just after the IconArea.")]
-        public FrameworkElement TitleBarLeftArea { get => (FrameworkElement)GetValue(TitleBarLeftAreaProperty); set => SetValue(TitleBarLeftAreaProperty, value); }
+        public FrameworkElement TitleBarLeftArea
+        {
+            get => (FrameworkElement)GetValue(TitleBarLeftAreaProperty);
+            set => SetValue(TitleBarLeftAreaProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleBarLeftArea"/> dependency property..
+        /// Identifies the <see cref="TitleBarLeftArea"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleBarLeftArea"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty TitleBarLeftAreaProperty =
             DependencyProperty.Register(
                 name: nameof(TitleBarLeftArea),
@@ -307,15 +357,22 @@
                     defaultValue: null));
 
         /// <summary>
-        /// Gets or sets the FrameworkElement located in the right part of the title bar, before the window buttons..
+        /// Gets or sets the FrameworkElement located in the right part of the title bar, before the window buttons.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets the FrameworkElement located in the right part of the title bar, before the window buttons.")]
-        public FrameworkElement TitleBarRightArea { get => (FrameworkElement)GetValue(TitleBarRightAreaProperty); set => SetValue(TitleBarRightAreaProperty, value); }
+        public FrameworkElement TitleBarRightArea
+        {
+            get => (FrameworkElement)GetValue(TitleBarRightAreaProperty);
+            set => SetValue(TitleBarRightAreaProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleBarRightArea"/> dependency property..
+        /// Identifies the <see cref="TitleBarRightArea"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleBarRightArea"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty TitleBarRightAreaProperty =
             DependencyProperty.Register(
                 name: nameof(TitleBarRightArea),
@@ -325,16 +382,22 @@
                     defaultValue: null));
 
         /// <summary>
-        /// Gets or sets the TitleBarForeground
-        /// Gets or sets a brush that describes the foreground color of the window's title bar. Automatically calculated by OnTitleBarBackgroundChanged(d, e) when TitleBarForegroundIsAutomated is true..
+        /// Gets or sets a brush that describes the foreground color of the window's title bar. Automatically calculated by OnTitleBarBackgroundChanged(d, e) when TitleBarForegroundIsAutomated is true.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets a brush that describes the foreground color of the window's title bar. Automatically calculated by OnTitleBarBackgroundChanged(d, e) when TitleBarForegroundIsAutomated is true.")]
-        public Brush TitleBarForeground { get => (Brush)GetValue(TitleBarForegroundProperty); set => SetValue(TitleBarForegroundProperty, value); }
+        public Brush TitleBarForeground
+        {
+            get => (Brush)GetValue(TitleBarForegroundProperty);
+            set => SetValue(TitleBarForegroundProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleBarForeground"/> dependency property..
+        /// Identifies the <see cref="TitleBarForeground"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleBarForeground"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty TitleBarForegroundProperty =
             DependencyProperty.Register(
                 name: nameof(TitleBarForeground),
@@ -344,16 +407,22 @@
                     defaultValue: Brushes.Black));
 
         /// <summary>
-        /// Gets or sets a value indicating whether TitleBarForegroundIsAutomated
-        /// Gets or sets a Boolean value representing whether or not the title bar foreground will automatically adapt to a new background..
+        /// Gets or sets a Boolean value representing whether or not the title bar foreground will automatically adapt to a new background.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets a Boolean value representing whether or not the title bar foreground will automatically adapt to a new background.")]
-        public bool TitleBarForegroundIsAutomated { get => (bool)GetValue(TitleBarForegroundIsAutomatedProperty); set => SetValue(TitleBarForegroundIsAutomatedProperty, value); }
+        public bool TitleBarForegroundIsAutomated
+        {
+            get => (bool)GetValue(TitleBarForegroundIsAutomatedProperty);
+            set => SetValue(TitleBarForegroundIsAutomatedProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleBarForegroundIsAutomated"/> dependency property..
+        /// Identifies the <see cref="TitleBarForegroundIsAutomated"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleBarForegroundIsAutomated"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty TitleBarForegroundIsAutomatedProperty =
             DependencyProperty.Register(
                 name: nameof(TitleBarForegroundIsAutomated),
@@ -362,15 +431,22 @@
                 typeMetadata: new PropertyMetadata(true));
 
         /// <summary>
-        /// Gets or sets the brush that describes the background of the window's title bar..
+        /// Gets or sets the brush that describes the background of the window's title bar.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets the brush that describes the background of the window's title bar.")]
-        public Brush TitleBarBackground { get => (Brush)GetValue(TitleBarBackgroundProperty); set => SetValue(TitleBarBackgroundProperty, value); }
+        public Brush TitleBarBackground
+        {
+            get => (Brush)GetValue(TitleBarBackgroundProperty);
+            set => SetValue(TitleBarBackgroundProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleBarBackground"/> dependency property..
+        /// Identifies the <see cref="TitleBarBackground"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleBarBackground"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty TitleBarBackgroundProperty =
             DependencyProperty.Register(
                 name: nameof(TitleBarBackground),
@@ -388,15 +464,22 @@
                     }));
 
         /// <summary>
-        /// Gets or sets the thickness of the border of the window's title bar..
+        /// Gets or sets the thickness of the border of the window's title bar.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets the thickness of the border of the window's title bar.")]
-        public Thickness TitleBarBorderThickness { get => (Thickness)GetValue(TitleBarBorderThicknessProperty); set => SetValue(TitleBarBorderThicknessProperty, value); }
+        public Thickness TitleBarBorderThickness
+        {
+            get => (Thickness)GetValue(TitleBarBorderThicknessProperty);
+            set => SetValue(TitleBarBorderThicknessProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleBarBorderThickness"/> dependency property..
+        /// Identifies the <see cref="TitleBarBorderThickness"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleBarBorderThickness"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty TitleBarBorderThicknessProperty =
             DependencyProperty.Register(
                 name: nameof(TitleBarBorderThickness),
@@ -405,15 +488,22 @@
                 typeMetadata: new PropertyMetadata(new Thickness(0, 0, 0, 1)));
 
         /// <summary>
-        /// Gets or sets the brush that describes the border of the window's title bar..
+        /// Gets or sets the brush that describes the border of the window's title bar.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets the brush that describes the border of the window's title bar.")]
-        public Brush TitleBarBorderBrush { get => (Brush)GetValue(TitleBarBorderBrushProperty); set => SetValue(TitleBarBorderBrushProperty, value); }
+        public Brush TitleBarBorderBrush
+        {
+            get => (Brush)GetValue(TitleBarBorderBrushProperty);
+            set => SetValue(TitleBarBorderBrushProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleBarBorderBrush"/> dependency property..
+        /// Identifies the <see cref="TitleBarBorderBrush"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleBarBorderBrush"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty TitleBarBorderBrushProperty =
             DependencyProperty.Register(
                 name: nameof(TitleBarBorderBrush),
@@ -422,15 +512,22 @@
                 typeMetadata: new PropertyMetadata(Brushes.Black));
 
         /// <summary>
-        /// Gets or sets the DataTemplate of the Title property..
+        /// Gets or sets the DataTemplate of the Title property.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets the DataTemplate of the Title property.")]
-        public DataTemplate TitleTemplate { get => (DataTemplate)GetValue(TitleTemplateProperty); set => SetValue(TitleTemplateProperty, value); }
+        public DataTemplate TitleTemplate
+        {
+            get => (DataTemplate)GetValue(TitleTemplateProperty);
+            set => SetValue(TitleTemplateProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleTemplate"/> dependency property..
+        /// Identifies the <see cref="TitleTemplate"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleTemplate"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty TitleTemplateProperty =
             DependencyProperty.Register(
                 name: nameof(TitleTemplate),
@@ -440,16 +537,22 @@
                     defaultValue: null));
 
         /// <summary>
-        /// Gets or sets the OverlayBackground
-        /// Gets or sets a brush that represents the background of the layer covering the window..
+        /// Gets or sets a brush that represents the background of the layer covering the window.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets a brush that represents the background of the layer covering the window.")]
-        public Brush OverlayBackground { get => (Brush)GetValue(OverlayBackgroundProperty); set => SetValue(OverlayBackgroundProperty, value); }
+        public Brush OverlayBackground
+        {
+            get => (Brush)GetValue(OverlayBackgroundProperty);
+            set => SetValue(OverlayBackgroundProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="TitleTemplate"/> dependency property..
+        /// Identifies the <see cref="TitleTemplate"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="TitleTemplate"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty OverlayBackgroundProperty =
             DependencyProperty.Register(
                 name: nameof(OverlayBackground),
@@ -459,16 +562,22 @@
                     defaultValue: Brushes.Gray));
 
         /// <summary>
-        /// Gets or sets a value indicating whether ShowCustomDialog
-        /// Gets or sets the visibility of the layer that covers the window..
+        /// Gets or sets the visibility of the layer that covers the window.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets the visibility of the layer that covers the window.")]
-        public bool ShowCustomDialog { get => (bool)GetValue(ShowCustomDialogProperty); set => SetValue(ShowCustomDialogProperty, value); }
+        public bool ShowCustomDialog
+        {
+            get => (bool)GetValue(ShowCustomDialogProperty);
+            set => SetValue(ShowCustomDialogProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="ShowCustomDialog"/> dependency property..
+        /// Identifies the <see cref="ShowCustomDialog"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="ShowCustomDialog"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty ShowCustomDialogProperty =
             DependencyProperty.Register(
                 name: nameof(ShowCustomDialog),
@@ -478,16 +587,22 @@
                     defaultValue: false));
 
         /// <summary>
-        /// Gets or sets the CustomDialog
-        /// Gets or sets a FrameworkElement that represents an interactive modal control that will only be visible if the ShowCustomDialog property is true..
+        /// Gets or sets a FrameworkElement that represents an interactive modal control that will only be visible if the ShowCustomDialog property is true.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets a FrameworkElement that represents an interactive modal control that will only be visible if the ShowCustomDialog property is true.")]
-        public FrameworkElement CustomDialog { get => (FrameworkElement)GetValue(CustomDialogProperty); set => SetValue(CustomDialogProperty, value); }
+        public FrameworkElement CustomDialog
+        {
+            get => (FrameworkElement)GetValue(CustomDialogProperty);
+            set => SetValue(CustomDialogProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="CustomDialog"/> dependency property..
+        /// Identifies the <see cref="CustomDialog"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="CustomDialog"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty CustomDialogProperty =
             DependencyProperty.Register(
                 name: nameof(CustomDialog),
@@ -497,16 +612,22 @@
                     defaultValue: null));
 
         /// <summary>
-        /// Gets or sets the CustomDialogBackground
-        /// Gets or sets a brush representing the background of the CustomDialog element..
+        /// Gets or sets a brush representing the background of the CustomDialog element.
         /// </summary>
-        [Category(CustomWindowCategory)]
+        [Category(ClassName)]
         [Description("Gets or sets a brush representing the background of the CustomDialog element.")]
-        public Brush CustomDialogBackground { get => (Brush)GetValue(CustomDialogBackgroundProperty); set => SetValue(CustomDialogBackgroundProperty, value); }
+        public Brush CustomDialogBackground
+        {
+            get => (Brush)GetValue(CustomDialogBackgroundProperty);
+            set => SetValue(CustomDialogBackgroundProperty, value);
+        }
 
         /// <summary>
-        /// Identifies the <see cref="CustomDialogBackground"/> dependency property..
+        /// Identifies the <see cref="CustomDialogBackground"/> dependency property.
         /// </summary>
+        /// <returns>
+        /// The identifier for the <see cref="CustomDialogBackground"/> dependency property.
+        /// </returns>
         public static readonly DependencyProperty CustomDialogBackgroundProperty =
             DependencyProperty.Register(
                 name: nameof(CustomDialogBackground),
@@ -515,29 +636,17 @@
                 typeMetadata: new PropertyMetadata(
                     defaultValue: Brushes.DarkBlue));
 
-        /// <summary>
-        /// Defines the NormalThickness.
-        /// </summary>
         private static readonly Thickness NormalThickness = new(0);
 
-        /// <summary>
-        /// Gets the WindowsTaskbarHeight.
-        /// </summary>
-        private static double WindowsTaskbarHeight => SystemParameters.PrimaryScreenHeight
+        private static double WindowsTaskbarHeight
+            => SystemParameters.PrimaryScreenHeight
             - SystemParameters.FullPrimaryScreenHeight
             - SystemParameters.WindowCaptionHeight;
 
-        /// <summary>
-        /// Gets the WindowsTaskbarWidth.
-        /// </summary>
-        private static double WindowsTaskbarWidth => SystemParameters.PrimaryScreenWidth
+        private static double WindowsTaskbarWidth
+            => SystemParameters.PrimaryScreenWidth
             - SystemParameters.FullPrimaryScreenWidth;
 
-        /// <summary>
-        /// The CustomWindow_StateChanged.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="Nullable{Object}"/>.</param>
-        /// <param name="e">The e<see cref="EventArgs"/>.</param>
         private void CustomWindow_StateChanged(object? sender, EventArgs e)
         {
             bool WindowStateIsNormal = WindowState == WindowState.Normal;
@@ -602,70 +711,23 @@
             }
         }
 
-        /// <summary>
-        /// Defines the TaskbarPosition.
-        /// </summary>
         private enum TaskbarPosition
         {
-            /// <summary>
-            /// Defines the None.
-            /// </summary>
             None,
-
-            /// <summary>
-            /// Defines the Top.
-            /// </summary>
             Top,
-
-            /// <summary>
-            /// Defines the Left.
-            /// </summary>
             Left,
-
-            /// <summary>
-            /// Defines the Bottom.
-            /// </summary>
             Bottom,
-
-            /// <summary>
-            /// Defines the Right.
-            /// </summary>
             Right
         }
 
-        /// <summary>
-        /// The CloseWindow.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="ExecutedRoutedEventArgs"/>.</param>
         private void CloseWindow(object sender, ExecutedRoutedEventArgs e) => Close();
 
-        /// <summary>
-        /// The CanMinimizeWindow.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="CanExecuteRoutedEventArgs"/>.</param>
         private void CanMinimizeWindow(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = ResizeMode != ResizeMode.NoResize;
 
-        /// <summary>
-        /// The CanResizeWindow.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="CanExecuteRoutedEventArgs"/>.</param>
         private void CanResizeWindow(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = ResizeMode is ResizeMode.CanResize or ResizeMode.CanResizeWithGrip;
 
-        /// <summary>
-        /// The MinimizeWindow.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="ExecutedRoutedEventArgs"/>.</param>
         private void MinimizeWindow(object sender, ExecutedRoutedEventArgs e) => SystemCommands.MinimizeWindow(this);
 
-        /// <summary>
-        /// The MaximizeRestoreWindow.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="ExecutedRoutedEventArgs"/>.</param>
         private void MaximizeRestoreWindow(object sender, ExecutedRoutedEventArgs e)
         {
             if ( sender is Window window && window != null )
@@ -729,111 +791,40 @@
         /// <typeparam name="T">Type of the child to find.</typeparam>
         /// <param name="childName">Name of the child to find.</param>
         /// <returns>The requested element. May be null if no element of the requested name exists.</returns>
+        /// <exception cref="MissingTemplatePartException"> will be lanched if the child is null.</exception>
         protected T GetTemplateChild<T>(string childName) where T : DependencyObject
         {
             T child = (T)GetTemplateChild(childName);
             return child is null ? throw new MissingTemplatePartException(childName, typeof(T)) : child;
         }
 
-        /// <summary>
-        /// Gets the MaximizeRestoreButton.
-        /// </summary>
         internal Button MaximizeRestoreButton { get; private set; } = new();
-
-        /// <summary>
-        /// Gets the OutterBorder.
-        /// </summary>
         internal Border OutterBorder { get; private set; } = new();
 
-        /// <summary>
-        /// Defines the MaximizeGlyph.
-        /// </summary>
         private const string MaximizeGlyph = "\uE923";
-
-        /// <summary>
-        /// Defines the RestoreGlyph.
-        /// </summary>
         private const string RestoreGlyph = "\uE922";
-
-        /// <summary>
-        /// Defines the MaximizeToolTip.
-        /// </summary>
         private const string MaximizeToolTip = "Maximizar";
-
-        /// <summary>
-        /// Defines the RestoreToolTip.
-        /// </summary>
         private const string RestoreToolTip = "Restaurar";
+        private const string ClassName = nameof(CustomWindow);
 
-        /// <summary>
-        /// Defines the CustomWindowCategory.
-        /// </summary>
-        private const string CustomWindowCategory = nameof(CustomWindow);
-
-        /// <summary>
-        /// Defines the PART_Icon.
-        /// </summary>
         private const string PART_Icon = "PART_Icon";
-
-        /// <summary>
-        /// Defines the PART_Title.
-        /// </summary>
         private const string PART_Title = "PART_Title";
-
-        /// <summary>
-        /// Defines the PART_LeftArea.
-        /// </summary>
         private const string PART_LeftArea = "PART_LeftArea";
-
-        /// <summary>
-        /// Defines the PART_RightArea.
-        /// </summary>
         private const string PART_RightArea = "PART_RightArea";
-
-        /// <summary>
-        /// Defines the PART_MinimizeButton.
-        /// </summary>
         private const string PART_MinimizeButton = "PART_MinimizeButton";
-
-        /// <summary>
-        /// Defines the PART_MaximizeRestoreButton.
-        /// </summary>
         private const string PART_MaximizeRestoreButton = "PART_MaximizeRestoreButton";
-
-        /// <summary>
-        /// Defines the PART_CloseButton.
-        /// </summary>
         private const string PART_CloseButton = "PART_CloseButton";
 
-        /// <summary>
-        /// Defines the <see cref="ArrayExceedsMaximumLengthException" />.
-        /// </summary>
         [Serializable]
         private class ArrayExceedsMaximumLengthException : Exception
         {
-            /// <summary>
-            /// Gets the ArrayName.
-            /// </summary>
             public string? ArrayName { get; private set; } = string.Empty;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="ArrayExceedsMaximumLengthException"/> class.
-            /// </summary>
-            /// <param name="arrayName">The arrayName<see cref="Nullable{String}"/>.</param>
-            /// <param name="message">The message<see cref="Nullable{String}"/>.</param>
             public ArrayExceedsMaximumLengthException(string? arrayName, string? message) : base(message)
             {
                 ArrayName = arrayName;
             }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="ArrayExceedsMaximumLengthException"/> class.
-            /// </summary>
-            /// <param name="info">The info<see cref="SerializationInfo"/>.</param>
-            /// <param name="context">The context<see cref="StreamingContext"/>.</param>
-            protected ArrayExceedsMaximumLengthException(SerializationInfo info, StreamingContext context) : base(info, context)
-            {
-            }
+            protected ArrayExceedsMaximumLengthException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         }
     }
+
 }
