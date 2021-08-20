@@ -750,6 +750,7 @@
             void CheckKioskExitKeyGesture(KeyEventArgs e)
             {
                 KioskExitKeyGesture k = KioskModeExitKeyGesture;
+
                 bool match = KioskModeExitKeyGesture.ModifierKeys.Length switch
                 {
                     1 => k.ModifierKeys[0] == (e.KeyboardDevice.Modifiers & k.ModifierKeys[0]),
@@ -761,13 +762,9 @@
                          k.ModifierKeys[1] == (e.KeyboardDevice.Modifiers & k.ModifierKeys[1]) &&
                          k.ModifierKeys[2] == (e.KeyboardDevice.Modifiers & k.ModifierKeys[2]),
 
-                    //  Unselect the 3 lines below if you need to alert that only 3 first items will be processed.
-                    //> 3 => throw new ArrayExceedsMaximumLengthException(
-                    //       arrayName: "KioskExitKeyGesture.ModifierKeys[ ]",
-                    //       message: $"There are {k.ModifierKeys.Length} items in KioskModeExitKeyGesture.ModifierKeys[ ] array. It can hold only 3 items."),
-
                     _ => false,
                 };
+
                 if ( match && (e.Key == KioskModeExitKeyGesture.Key || e.SystemKey == KioskModeExitKeyGesture.Key) )
                 {
                     e.Handled = true;

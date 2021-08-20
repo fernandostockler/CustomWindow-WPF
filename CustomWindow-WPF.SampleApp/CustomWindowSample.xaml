@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="customWindow"
     Title="CustomWindow Sample"
-    Width="800" KioskMode="True"
+    Width="800"
     Height="450"
     Icon="/Death Star - 1st (2015_09_19 07_11_09 UTC).ico"
     TitleBarBackground="DarkOliveGreen"

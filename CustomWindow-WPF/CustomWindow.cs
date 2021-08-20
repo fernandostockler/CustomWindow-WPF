@@ -312,12 +312,12 @@
                 propertyType: typeof(bool),
                 ownerType: typeof(CustomWindow),
                 typeMetadata: new FrameworkPropertyMetadata(false,
-                    propertyChangedCallback: (d, e) =>
-                    {
-                        bool newValue = (bool)e.NewValue;
-                        CustomWindow customWindow = (CustomWindow)d;
-                        customWindow.OnKioskModeChanged(newValue);
-                    }));
+                propertyChangedCallback: (d, e) =>
+                {
+                    bool newValue = (bool)e.NewValue;
+                    CustomWindow customWindow = (CustomWindow)d;
+                    customWindow.OnKioskModeChanged(newValue);
+                }));
 
         /// <summary>
         /// Defines the OriginalTitleBarHeight.
@@ -426,6 +426,7 @@
 
             void CheckForbiddenKeys(KeyEventArgs e)
             {
+                // TODO: estudar como evitar
                 if ( e.Key == Key.LWin || e.SystemKey == Key.LWin || e.Key == Key.RWin || e.SystemKey == Key.RWin )
                 {
                     e.Handled = true;
