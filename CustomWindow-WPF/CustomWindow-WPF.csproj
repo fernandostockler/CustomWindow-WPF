@@ -24,4 +24,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="CustomWindow1.Properties.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="CustomWindow1.Properties.cs" />
+  </ItemGroup>
+
 </Project>

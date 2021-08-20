@@ -1,7 +1,6 @@
 ﻿namespace CustomWindow_WPF
 {
     using System;
-    using System.ComponentModel;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
@@ -26,6 +25,11 @@
         /// Defines the NormalThickness.
         /// </summary>
         private Thickness NormalThickness = new(0);
+
+        /// <summary>
+        /// Defines the OriginalTitleBarHeight.
+        /// </summary>
+        private double OriginalTitleBarHeight = 42.0;
 
         /// <summary>
         /// Initializes static members of the <see cref="CustomWindow"/> class.
@@ -73,59 +77,43 @@
         }
 
         /// <summary>
-        /// Gets or sets the TitleBar
-        /// Gets or sets a FrameworkElement value that represents a non-client title bar area except the buttons area..
-        /// </summary>
-        [Category(Comum)]
-        [Description("Gets or sets a FrameworkElement value that represents a non-client title bar area except the buttons area.")]
-        public FrameworkElement TitleBar { get => (FrameworkElement)GetValue(TitleBarProperty); set => SetValue(TitleBarProperty, value); }
-
-        /// <summary>
         /// Identifies the <see cref="TitleBar"/> dependency property..
         /// </summary>
         public static readonly DependencyProperty TitleBarProperty = DependencyProperty.Register(
-            name: nameof(TitleBar),
-            propertyType: typeof(FrameworkElement),
-            ownerType: typeof(CustomWindow),
-            typeMetadata: new PropertyMetadata(defaultValue: null));
-
-        /// <summary>
-        /// Gets or sets the TitleBarHeight.
-        /// </summary>
-        [Category(Comum)]
-        [Description("Obtem ou define a altura da barra de título (parte não cliente).")]
-        public double TitleBarHeight { get => (double)GetValue(TitleBarHeightProperty); set => SetValue(TitleBarHeightProperty, value); }
+        name: nameof(TitleBar),
+        propertyType: typeof(FrameworkElement),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(defaultValue: null));
 
         /// <summary>
         /// Defines the TitleBarHeightProperty.
         /// </summary>
-        public static readonly DependencyProperty TitleBarHeightProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleBarHeight),
-                propertyType: typeof(double),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(defaultValue: 42.0,
+        public static readonly DependencyProperty TitleBarHeightProperty = DependencyProperty.Register(
+        name: nameof(TitleBarHeight),
+        propertyType: typeof(double),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(defaultValue: 42.0,
 
-                propertyChangedCallback: (d, e) =>
-                {
-                    CustomWindow win = (CustomWindow)d;
-                    double newValue = (double)e.NewValue;
-                    win.OnTitleBarHeightChanged(newValue);
-                },
+        propertyChangedCallback: (d, e) =>
+        {
+            CustomWindow win = (CustomWindow)d;
+            double newValue = (double)e.NewValue;
+            win.OnTitleBarHeightChanged(newValue);
+        },
 
-                coerceValueCallback: (d, baseValue) =>
-                {
-                    CustomWindow win = (CustomWindow)d;
-                    return (baseValue is double value && value < win.MinTitleBarHeight) ? win.MinTitleBarHeight : baseValue;
-                }),
+        coerceValueCallback: (d, baseValue) =>
+        {
+            CustomWindow win = (CustomWindow)d;
+            return (baseValue is double value && value < win.MinTitleBarHeight) ? win.MinTitleBarHeight : baseValue;
+        }),
 
-                validateValueCallback: (value) => value switch
-                {
-                    double dvalue => !double.IsNaN(dvalue) &&
-                        !double.IsNegativeInfinity(dvalue) &&
-                        !double.IsPositiveInfinity(dvalue),
-                    _ => false
-                });
+        validateValueCallback: (value) => value switch
+        {
+            double dvalue => !double.IsNaN(dvalue) &&
+                !double.IsNegativeInfinity(dvalue) &&
+                !double.IsPositiveInfinity(dvalue),
+            _ => false
+        });
 
         /// <summary>
         /// The OnTitleBarHeightChanged.
@@ -142,183 +130,112 @@
         }
 
         /// <summary>
-        /// Gets or sets the TitleBarForeground.
-        /// </summary>
-        [Description("Obtem ou define um pincel que descreve a cor do primeiro plano da barra de título da janela.")]
-        public Brush TitleBarForeground { get => (Brush)GetValue(TitleBarForegroundProperty); set => SetValue(TitleBarForegroundProperty, value); }
-
-        /// <summary>
         /// Defines the TitleBarForegroundProperty.
         /// </summary>
-        public static readonly DependencyProperty TitleBarForegroundProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleBarForeground),
-                propertyType: typeof(Brush),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(defaultValue: Brushes.Black));
-
-        /// <summary>
-        /// Gets or sets a value indicating whether TitleBarForegroundIsAutomated
-        /// Gets or sets a Boolean value representing whether or not the title bar foreground will automatically adapt to a new background..
-        /// </summary>
-        [Category(Comum)]
-        [Description("Gets or sets a Boolean value representing whether or not the title bar foreground will automatically adapt to a new background.")]
-        public bool TitleBarForegroundIsAutomated { get => (bool)GetValue(TitleBarForegroundIsAutomatedProperty); set => SetValue(TitleBarForegroundIsAutomatedProperty, value); }
+        public static readonly DependencyProperty TitleBarForegroundProperty = DependencyProperty.Register(
+        name: nameof(TitleBarForeground),
+        propertyType: typeof(Brush),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: Brushes.Black));
 
         /// <summary>
         /// Identifies the <see cref="TitleBarForegroundIsAutomated"/> dependency property..
         /// </summary>
-        public static readonly DependencyProperty TitleBarForegroundIsAutomatedProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleBarForegroundIsAutomated),
-                propertyType: typeof(bool),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(true));
-
-        /// <summary>
-        /// Gets or sets the TitleBarBackground.
-        /// </summary>
-        [Description("Obtem ou define um pincel que descreve o plano de fundo da barra do título da janela.")]
-        public Brush TitleBarBackground { get => (Brush)GetValue(TitleBarBackgroundProperty); set => SetValue(TitleBarBackgroundProperty, value); }
+        public static readonly DependencyProperty TitleBarForegroundIsAutomatedProperty = DependencyProperty.Register(
+        name: nameof(TitleBarForegroundIsAutomated),
+        propertyType: typeof(bool),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: true));
 
         /// <summary>
         /// Defines the TitleBarBackgroundProperty.
         /// </summary>
-        public static readonly DependencyProperty TitleBarBackgroundProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleBarBackground),
-                propertyType: typeof(Brush),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(defaultValue: Brushes.White,
-                propertyChangedCallback: (d, e) =>
-                {
-                    CustomWindow win = (CustomWindow)d;
-                    Brush newValue = (Brush)e.NewValue;
+        public static readonly DependencyProperty TitleBarBackgroundProperty = DependencyProperty.Register(
+        name: nameof(TitleBarBackground),
+        propertyType: typeof(Brush),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: Brushes.White,
+        propertyChangedCallback: (d, e) =>
+        {
+            CustomWindow win = (CustomWindow)d;
+            Brush newValue = (Brush)e.NewValue;
 
-                    Brush? newIdealForeground = BackgroundToForegroundConverter.Instance
-                        .Convert(newValue, typeof(Brush), new object(), CultureInfo.CurrentCulture) as Brush;
+            Brush? newIdealForeground = BackgroundToForegroundConverter.Instance
+                .Convert(newValue, typeof(Brush), new object(), CultureInfo.CurrentCulture) as Brush;
 
-                    win.TitleBarForeground = win.TitleBarForegroundIsAutomated
-                        ? newIdealForeground ?? SystemColors.HotTrackBrush
-                        : win.Foreground;
-                }));
-
-        /// <summary>
-        /// Gets or sets the OverlayBackground.
-        /// </summary>
-        [Description("Obtem ou define um pincel que representa o plano de fundo da camada que cobre a janela.")]
-        public Brush OverlayBackground { get => (Brush)GetValue(OverlayBackgroundProperty); set => SetValue(OverlayBackgroundProperty, value); }
+            win.TitleBarForeground = win.TitleBarForegroundIsAutomated
+                ? newIdealForeground ?? SystemColors.HotTrackBrush
+                : win.Foreground;
+        }));
 
         /// <summary>
         /// Defines the OverlayBackgroundProperty.
         /// </summary>
-        public static readonly DependencyProperty OverlayBackgroundProperty =
-            DependencyProperty.Register(
-                name: nameof(OverlayBackground),
-                propertyType: typeof(Brush),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(defaultValue: Brushes.Gray));
-
-        /// <summary>
-        /// Gets or sets a value indicating whether ShowCustomDialog
-        /// Gets or sets the visibility of the layer that covers the window..
-        /// </summary>
-        [Category(Comum)]
-        [Description("Gets or sets the visibility of the layer that covers the window.")]
-        public bool ShowCustomDialog { get => (bool)GetValue(ShowCustomDialogProperty); set => SetValue(ShowCustomDialogProperty, value); }
+        public static readonly DependencyProperty OverlayBackgroundProperty = DependencyProperty.Register(
+        name: nameof(OverlayBackground),
+        propertyType: typeof(Brush),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: Brushes.Gray));
 
         /// <summary>
         /// Identifies the <see cref="ShowCustomDialog"/> dependency property..
         /// </summary>
-        public static readonly DependencyProperty ShowCustomDialogProperty =
-            DependencyProperty.Register(
-                name: nameof(ShowCustomDialog),
-                propertyType: typeof(bool),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(defaultValue: false));
-
-        /// <summary>
-        /// Gets or sets the CustomDialog
-        /// Gets or sets a FrameworkElement that represents an interactive modal control that will only be visible if the ShowCustomDialog property is true..
-        /// </summary>
-        [Category(Comum)]
-        [Description("Gets or sets a FrameworkElement that represents an interactive modal control that will only be visible if the ShowCustomDialog property is true.")]
-        public FrameworkElement CustomDialog { get => (FrameworkElement)GetValue(CustomDialogProperty); set => SetValue(CustomDialogProperty, value); }
+        public static readonly DependencyProperty ShowCustomDialogProperty = DependencyProperty.Register(
+        name: nameof(ShowCustomDialog),
+        propertyType: typeof(bool),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: false));
 
         /// <summary>
         /// Identifies the <see cref="CustomDialog"/> dependency property..
         /// </summary>
-        public static readonly DependencyProperty CustomDialogProperty =
-            DependencyProperty.Register(
-                name: nameof(CustomDialog),
-                propertyType: typeof(FrameworkElement),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(defaultValue: null));
-
-        /// <summary>
-        /// Gets or sets the CustomDialogBackground
-        /// Gets or sets a brush representing the background of the CustomDialog element..
-        /// </summary>
-        [Category(Comum)]
-        [Description("Gets or sets a brush representing the background of the CustomDialog element.")]
-        public Brush CustomDialogBackground { get => (Brush)GetValue(CustomDialogBackgroundProperty); set => SetValue(CustomDialogBackgroundProperty, value); }
+        public static readonly DependencyProperty CustomDialogProperty = DependencyProperty.Register(
+        name: nameof(CustomDialog),
+        propertyType: typeof(FrameworkElement),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: null));
 
         /// <summary>
         /// Identifies the <see cref="CustomDialogBackground"/> dependency property..
         /// </summary>
-        public static readonly DependencyProperty CustomDialogBackgroundProperty =
-            DependencyProperty.Register(
-                name: nameof(CustomDialogBackground),
-                propertyType: typeof(Brush),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(defaultValue: Brushes.DarkBlue));
-
-        /// <summary>
-        /// Gets or sets the MinTitleBarHeight
-        /// Gets or sets a double value representing the minimum title bar's height..
-        /// </summary>
-        [Category(Comum)]
-        [Description("Gets or sets a double value representing the minimum title bar's height.")]
-        public double MinTitleBarHeight { get => (double)GetValue(MinTitleBarHeightProperty); set => SetValue(MinTitleBarHeightProperty, value); }
+        public static readonly DependencyProperty CustomDialogBackgroundProperty = DependencyProperty.Register(
+        name: nameof(CustomDialogBackground),
+        propertyType: typeof(Brush),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: Brushes.DarkBlue));
 
         /// <summary>
         /// Identifies the <see cref="MinTitleBarHeight"/> dependency property..
         /// </summary>
-        public static readonly DependencyProperty MinTitleBarHeightProperty =
-            DependencyProperty.Register(
-                name: nameof(MinTitleBarHeight),
-                propertyType: typeof(double),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(36.0));
-
-        /// <summary>
-        /// Gets or sets a value indicating whether KioskMode
-        /// Gets or sets a Boolean value representing whether KioskMode is turned on/off..
-        /// </summary>
-        [Category(Comum)]
-        [Description("Gets or sets a Boolean value representing whether KioskMode is turned on/off.")]
-        public bool KioskMode { get => (bool)GetValue(KioskModeProperty); set => SetValue(KioskModeProperty, value); }
+        public static readonly DependencyProperty MinTitleBarHeightProperty = DependencyProperty.Register(
+        name: nameof(MinTitleBarHeight),
+        propertyType: typeof(double),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: 36.0));
 
         /// <summary>
         /// Identifies the <see cref="KioskMode"/> dependency property..
         /// </summary>
-        public static readonly DependencyProperty KioskModeProperty =
-            DependencyProperty.Register(
-                name: nameof(KioskMode),
-                propertyType: typeof(bool),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new FrameworkPropertyMetadata(false,
-                propertyChangedCallback: (d, e) =>
-                {
-                    bool newValue = (bool)e.NewValue;
-                    CustomWindow customWindow = (CustomWindow)d;
-                    customWindow.OnKioskModeChanged(newValue);
-                }));
-
-        /// <summary>
-        /// Defines the OriginalTitleBarHeight.
-        /// </summary>
-        private double OriginalTitleBarHeight = 42.0;
+        public static readonly DependencyProperty KioskModeProperty = DependencyProperty.Register(
+        name: nameof(KioskMode),
+        propertyType: typeof(bool),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new FrameworkPropertyMetadata(
+        defaultValue: false,
+        propertyChangedCallback: (d, e) =>
+        {
+            bool newValue = (bool)e.NewValue;
+            CustomWindow customWindow = (CustomWindow)d;
+            customWindow.OnKioskModeChanged(newValue);
+        }));
 
         /// <summary>
         /// The OnKioskModeChanged.
@@ -349,23 +266,14 @@
         }
 
         /// <summary>
-        /// Gets or sets the KioskModeExitKeyGesture
-        /// Gets or sets a key combination that turns off kiosk mode..
-        /// </summary>
-        [Category(Comum)]
-        [Description("Gets or sets a key combination that turns off kiosk mode.")]
-        public KioskExitKeyGesture KioskModeExitKeyGesture { get => (KioskExitKeyGesture)GetValue(KioskModeExitKeyGestureProperty); set => SetValue(KioskModeExitKeyGestureProperty, value); }
-
-        /// <summary>
         /// Identifies the <see cref="KioskModeExitKeyGesture"/> dependency property..
         /// </summary>
-        public static readonly DependencyProperty KioskModeExitKeyGestureProperty =
-            DependencyProperty.Register(
-                name: nameof(KioskModeExitKeyGesture),
-                propertyType: typeof(KioskExitKeyGesture),
-                ownerType: typeof(CustomWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: new KioskExitKeyGesture(Key.End, new ModifierKeys[] { ModifierKeys.Shift, ModifierKeys.Alt })));
+        public static readonly DependencyProperty KioskModeExitKeyGestureProperty = DependencyProperty.Register(
+        name: nameof(KioskModeExitKeyGesture),
+        propertyType: typeof(KioskExitKeyGesture),
+        ownerType: typeof(CustomWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: new KioskExitKeyGesture(Key.End, new ModifierKeys[] { ModifierKeys.Shift, ModifierKeys.Alt })));
 
         /// <summary>
         /// The CloseWindow.
