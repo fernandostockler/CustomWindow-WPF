@@ -117,34 +117,6 @@
         private void CustomDialogEnterButton_Click(object sender, RoutedEventArgs e) => ShowCustomDialog = false;
 
         /// <summary>
-        /// Shadows the WindowStyle property to prevent it from being changed from WindowStyle.None . </summary>
-        /// <remarks>
-        /// Any attempt to modify this property will launch an exception: </remarks>
-        /// <exception>
-        /// cref="Error MC3080  The property 'CustomWindow.WindowStyle' cannot be set because it does not have an accessible set accessor."
-        /// </exception>
-        //public new WindowStyle WindowStyle
-        //{
-        //    get => (WindowStyle)GetValue(WindowStyleProperty);
-        //    private set => SetValue(WindowStyleProperty, value);
-        //}
-
-        /// <summary>
-        /// Shadows the AllowsTransparency property to prevent it from being changed from AllowTransparency = True.
-        /// </summary>
-        /// <remarks>
-        /// Any attempt to modify this property will launch an exception:
-        /// </remarks>
-        /// <exception>
-        /// cref="Error MC3080  The property 'CustomWindow.AllowsTransparency' cannot be set because it does not have an accessible set accessor."
-        /// </exception>
-        //public new bool AllowsTransparency
-        //{
-        //    get => (bool)GetValue(AllowsTransparencyProperty);
-        //    private set => SetValue(AllowsTransparencyProperty, value);
-        //}
-
-        /// <summary>
         /// Gets or sets a Boolean value representing whether KioskMode is turned on/off.
         /// </summary>
         [Category(ClassName)]
@@ -167,12 +139,12 @@
                 propertyType: typeof(bool),
                 ownerType: typeof(CustomWindow1),
                 typeMetadata: new FrameworkPropertyMetadata(false,
-                    propertyChangedCallback: (d, e) =>
-                    {
-                        bool newValue = (bool)e.NewValue;
-                        CustomWindow1 customWindow = (CustomWindow1)d;
-                        customWindow.OnKioskModeChanged(newValue);
-                    }));
+                propertyChangedCallback: (d, e) =>
+                {
+                    bool newValue = (bool)e.NewValue;
+                    CustomWindow1 customWindow = (CustomWindow1)d;
+                    customWindow.OnKioskModeChanged(newValue);
+                }));
 
         private double OriginalTitleBarHeight = 42.0;
 
