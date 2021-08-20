@@ -25,10 +25,7 @@
         /// <summary>
         /// Initializes static members of the <see cref="CWindow"/> class.
         /// </summary>
-        static CWindow()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(CWindow), new FrameworkPropertyMetadata(typeof(CWindow)));
-        }
+        static CWindow() => DefaultStyleKeyProperty.OverrideMetadata(typeof(CWindow), new FrameworkPropertyMetadata(typeof(CWindow)));
 
         /// <summary>
         /// Gets or sets the IconTemplate.
@@ -38,13 +35,12 @@
         /// <summary>
         /// Defines the IconTemplateProperty.
         /// </summary>
-        public static readonly DependencyProperty IconTemplateProperty =
-            DependencyProperty.Register(
-                name: nameof(IconTemplate),
-                propertyType: typeof(DataTemplate),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: null));
+        public static readonly DependencyProperty IconTemplateProperty = DependencyProperty.Register(
+        name: nameof(IconTemplate),
+        propertyType: typeof(DataTemplate),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: null));
 
         /// <summary>
         /// Gets or sets the IconArea.
@@ -55,13 +51,12 @@
         /// <summary>
         /// Defines the IconAreaProperty.
         /// </summary>
-        public static readonly DependencyProperty IconAreaProperty =
-            DependencyProperty.Register(
-                name: nameof(IconArea),
-                propertyType: typeof(FrameworkElement),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: null));
+        public static readonly DependencyProperty IconAreaProperty = DependencyProperty.Register(
+        name: nameof(IconArea),
+        propertyType: typeof(FrameworkElement),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: null));
 
         /// <summary>
         /// Gets or sets the TitleBarHeight.
@@ -73,16 +68,15 @@
         /// <summary>
         /// Defines the TitleBarHeightProperty.
         /// </summary>
-        public static readonly DependencyProperty TitleBarHeightProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleBarHeight),
-                propertyType: typeof(double),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: 42.0,
-                    propertyChangedCallback: OnTitleBarHeightChanged,
-                    coerceValueCallback: OnCoerceTitleBarHeight),
-                    validateValueCallback: OnValidateTitleBarHeight);
+        public static readonly DependencyProperty TitleBarHeightProperty = DependencyProperty.Register(
+        name: nameof(TitleBarHeight),
+        propertyType: typeof(double),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: 42.0,
+        propertyChangedCallback: OnTitleBarHeightChanged,
+        coerceValueCallback: OnCoerceTitleBarHeight),
+        validateValueCallback: OnValidateTitleBarHeight);
 
         /// <summary>
         /// The OnCoerceTitleBarHeight.
@@ -90,10 +84,7 @@
         /// <param name="d">The d<see cref="DependencyObject"/>.</param>
         /// <param name="baseValue">The baseValue<see cref="object"/>.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        private static object OnCoerceTitleBarHeight(DependencyObject d, object baseValue)
-        {
-            return (baseValue is double value && value < 36.0) ? 36.0 : baseValue;
-        }
+        private static object OnCoerceTitleBarHeight(DependencyObject d, object baseValue) => (baseValue is double value && value < 36.0) ? 36.0 : baseValue;
 
         /// <summary>
         /// The OnTitleBarHeightChanged.
@@ -138,13 +129,12 @@
         /// <summary>
         /// Defines the TitleBarLeftAreaProperty.
         /// </summary>
-        public static readonly DependencyProperty TitleBarLeftAreaProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleBarLeftArea),
-                propertyType: typeof(FrameworkElement),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: null));
+        public static readonly DependencyProperty TitleBarLeftAreaProperty = DependencyProperty.Register(
+        name: nameof(TitleBarLeftArea),
+        propertyType: typeof(FrameworkElement),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: null));
 
         /// <summary>
         /// Gets or sets the TitleBarRightArea.
@@ -156,13 +146,12 @@
         /// <summary>
         /// Defines the TitleBarRightAreaProperty.
         /// </summary>
-        public static readonly DependencyProperty TitleBarRightAreaProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleBarRightArea),
-                propertyType: typeof(FrameworkElement),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: null));
+        public static readonly DependencyProperty TitleBarRightAreaProperty = DependencyProperty.Register(
+        name: nameof(TitleBarRightArea),
+        propertyType: typeof(FrameworkElement),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: null));
 
         /// <summary>
         /// Gets or sets the TitleBarForeground.
@@ -173,13 +162,12 @@
         /// <summary>
         /// Defines the TitleBarForegroundProperty.
         /// </summary>
-        public static readonly DependencyProperty TitleBarForegroundProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleBarForeground),
-                propertyType: typeof(Brush),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: Brushes.Black));
+        public static readonly DependencyProperty TitleBarForegroundProperty = DependencyProperty.Register(
+        name: nameof(TitleBarForeground),
+        propertyType: typeof(Brush),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: Brushes.Black));
 
         /// <summary>
         /// Gets or sets the TitleBarBackground.
@@ -190,14 +178,13 @@
         /// <summary>
         /// Defines the TitleBarBackgroundProperty.
         /// </summary>
-        public static readonly DependencyProperty TitleBarBackgroundProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleBarBackground),
-                propertyType: typeof(Brush),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: Brushes.White,
-                    propertyChangedCallback: OnTitleBarBackgroundChanged));
+        public static readonly DependencyProperty TitleBarBackgroundProperty = DependencyProperty.Register(
+        name: nameof(TitleBarBackground),
+        propertyType: typeof(Brush),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: Brushes.White,
+        propertyChangedCallback: OnTitleBarBackgroundChanged));
 
         /// <summary>
         /// The OnTitleBarBackgroundChanged.
@@ -217,12 +204,9 @@
         /// The OnTitleBarBackgroundChanged.
         /// </summary>
         /// <param name="newValue">The newValue<see cref="Brush"/>.</param>
-        private void OnTitleBarBackgroundChanged(Brush newValue)
-        {
+        private void OnTitleBarBackgroundChanged(Brush newValue) =>
             //Brush oldValue = TitleBarForeground;
-            TitleBarForeground = newValue;
-            //OnPropertyChanged(new(TitleBarForegroundProperty, oldValue, newValue));
-        }
+            TitleBarForeground = newValue;//OnPropertyChanged(new(TitleBarForegroundProperty, oldValue, newValue));
 
         /// <summary>
         /// Gets or sets the TitleTemplate.
@@ -234,13 +218,12 @@
         /// <summary>
         /// Defines the TitleTemplateProperty.
         /// </summary>
-        public static readonly DependencyProperty TitleTemplateProperty =
-            DependencyProperty.Register(
-                name: nameof(TitleTemplate),
-                propertyType: typeof(DataTemplate),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: null));
+        public static readonly DependencyProperty TitleTemplateProperty = DependencyProperty.Register(
+        name: nameof(TitleTemplate),
+        propertyType: typeof(DataTemplate),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: null));
 
         /// <summary>
         /// Gets or sets the OverlayBackground.
@@ -251,13 +234,12 @@
         /// <summary>
         /// Defines the OverlayBackgroundProperty.
         /// </summary>
-        public static readonly DependencyProperty OverlayBackgroundProperty =
-            DependencyProperty.Register(
-                name: nameof(OverlayBackground),
-                propertyType: typeof(Brush),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: Brushes.Gray));
+        public static readonly DependencyProperty OverlayBackgroundProperty = DependencyProperty.Register(
+        name: nameof(OverlayBackground),
+        propertyType: typeof(Brush),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: Brushes.Gray));
 
         /// <summary>
         /// Gets or sets a value indicating whether ShowMessage.
@@ -269,13 +251,12 @@
         /// <summary>
         /// Defines the ShowMessageProperty.
         /// </summary>
-        public static readonly DependencyProperty ShowMessageProperty =
-            DependencyProperty.Register(
-                name: nameof(ShowMessage),
-                propertyType: typeof(bool),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: false));
+        public static readonly DependencyProperty ShowMessageProperty = DependencyProperty.Register(
+        name: nameof(ShowMessage),
+        propertyType: typeof(bool),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: false));
 
         /// <summary>
         /// Gets or sets the Message.
@@ -285,13 +266,12 @@
         /// <summary>
         /// Defines the MessageProperty.
         /// </summary>
-        public static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register(
-                name: nameof(Message),
-                propertyType: typeof(FrameworkElement),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: null));
+        public static readonly DependencyProperty MessageProperty = DependencyProperty.Register(
+        name: nameof(Message),
+        propertyType: typeof(FrameworkElement),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: null));
 
         /// <summary>
         /// Gets or sets the MessageBackground.
@@ -301,13 +281,12 @@
         /// <summary>
         /// Defines the MessageBackgroundProperty.
         /// </summary>
-        public static readonly DependencyProperty MessageBackgroundProperty =
-            DependencyProperty.Register(
-                name: nameof(MessageBackground),
-                propertyType: typeof(Brush),
-                ownerType: typeof(CWindow),
-                typeMetadata: new PropertyMetadata(
-                    defaultValue: Brushes.DarkBlue));
+        public static readonly DependencyProperty MessageBackgroundProperty = DependencyProperty.Register(
+        name: nameof(MessageBackground),
+        propertyType: typeof(Brush),
+        ownerType: typeof(CWindow),
+        typeMetadata: new PropertyMetadata(
+        defaultValue: Brushes.DarkBlue));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CWindow"/> class.
@@ -340,40 +319,28 @@
         /// </summary>
         /// <param name="sender">The sender<see cref="object"/>.</param>
         /// <param name="e">The e<see cref="ExecutedRoutedEventArgs"/>.</param>
-        private void CloseWindow(object sender, ExecutedRoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseWindow(object sender, ExecutedRoutedEventArgs e) => Close();
 
         /// <summary>
         /// The CanMinimizeWindow.
         /// </summary>
         /// <param name="sender">The sender<see cref="object"/>.</param>
         /// <param name="e">The e<see cref="CanExecuteRoutedEventArgs"/>.</param>
-        private void CanMinimizeWindow(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = ResizeMode != ResizeMode.NoResize;
-        }
+        private void CanMinimizeWindow(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = ResizeMode != ResizeMode.NoResize;
 
         /// <summary>
         /// The CanResizeWindow.
         /// </summary>
         /// <param name="sender">The sender<see cref="object"/>.</param>
         /// <param name="e">The e<see cref="CanExecuteRoutedEventArgs"/>.</param>
-        private void CanResizeWindow(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = ResizeMode is ResizeMode.CanResize or ResizeMode.CanResizeWithGrip;
-        }
+        private void CanResizeWindow(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = ResizeMode is ResizeMode.CanResize or ResizeMode.CanResizeWithGrip;
 
         /// <summary>
         /// The MinimizeWindow.
         /// </summary>
         /// <param name="sender">The sender<see cref="object"/>.</param>
         /// <param name="e">The e<see cref="ExecutedRoutedEventArgs"/>.</param>
-        private void MinimizeWindow(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MinimizeWindow(this);
-        }
+        private void MinimizeWindow(object sender, ExecutedRoutedEventArgs e) => SystemCommands.MinimizeWindow(this);
 
         /// <summary>
         /// The MaximizeRestoreWindow.
