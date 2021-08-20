@@ -1,13 +1,41 @@
-﻿<cw:CustomWindow x:Class="CustomWindow_WPF.SampleApp.CustomWindowSample"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:cw="clr-namespace:CustomWindow_WPF;assembly=CustomWindow-WPF"
-        xmlns:local="clr-namespace:CustomWindow_WPF.SampleApp"
-        mc:Ignorable="d"
-        Title="CustomWindow Sample" Height="450" Width="800">
+﻿<cw:CustomWindow
+    x:Class="CustomWindow_WPF.SampleApp.CustomWindowSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cw="clr-namespace:CustomWindow_WPF;assembly=CustomWindow-WPF"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CustomWindow_WPF.SampleApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="customWindow"
+    Title="CustomWindow Sample"
+    Width="800"
+    Height="450"
+    Icon="/Death Star - 1st (2015_09_19 07_11_09 UTC).ico"
+    mc:Ignorable="d" WindowStartupLocation="CenterScreen">
+    <cw:CustomWindow.TitleBar>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="0"
+                Margin="3,3,3,3"
+                VerticalAlignment="Center"
+                Source="{Binding Icon, ElementName=customWindow}" />
+            <TextBlock
+                Grid.Column="1"
+                Margin="7,0,0,0"
+                VerticalAlignment="Center"
+                FontSize="16"
+                Text="{Binding Title, ElementName=customWindow}" />
+        </Grid>
+    </cw:CustomWindow.TitleBar>
     <Grid>
-        <TextBlock Text="This is a CustomWindow" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"/>
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="32"
+            Text="This is a CustomWindow" />
     </Grid>
 </cw:CustomWindow>

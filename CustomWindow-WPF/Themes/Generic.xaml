@@ -298,158 +298,139 @@
     </Style>
 
     <ControlTemplate x:Key="CWindowTemplate" TargetType="local:CWindow">
-        <Border CornerRadius="{TemplateBinding CornerRadius}">
-            <Grid>
-                <!--  Opacity Mask for corners on grid  -->
-                <Border
-                    x:Name="Container"
-                    Background="{TemplateBinding Background}"
-                    CornerRadius="{TemplateBinding CornerRadius}" />
-                <!--  Window border and dropshadow  -->
-                <Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}">
-                    <Border.Effect>
-                        <DropShadowEffect Opacity="0.2" ShadowDepth="5" />
-                    </Border.Effect>
+        <Grid>
+            <Border
+                x:Name="OutterBorder"
+                Margin="{TemplateBinding Margin}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
 
-                </Border>
-                <Border
-                    x:Name="OutterBorder"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}"
-                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                    <Border.OpacityMask>
-                        <VisualBrush Visual="{Binding ElementName=Container}" />
-                    </Border.OpacityMask>
+                <Grid x:Name="rootLayout">
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="TitleBarRow" Height="{TemplateBinding TitleBarHeight, Converter={StaticResource DoubleToGridlenghtConverter}}" />
+                        <RowDefinition x:Name="ClientAreaRow" />
+                    </Grid.RowDefinitions>
 
-                    <Grid x:Name="rootLayout">
-                        <Grid.RowDefinitions>
-                            <RowDefinition x:Name="TitleBarRow" Height="{TemplateBinding TitleBarHeight, Converter={StaticResource DoubleToGridlenghtConverter}}" />
-                            <RowDefinition x:Name="ClientAreaRow" />
-                        </Grid.RowDefinitions>
-                        <Grid.OpacityMask>
-                            <VisualBrush Visual="{Binding ElementName=Container}" />
-                        </Grid.OpacityMask>
-                        <Grid Background="{TemplateBinding TitleBarBackground}">
+                    <Grid Background="{TemplateBinding TitleBarBackground}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="IconColumn" Width="Auto" />
+                            <ColumnDefinition x:Name="LeftAreaColumn" Width="Auto" />
+                            <ColumnDefinition x:Name="TitleColumn" Width="*" />
+                            <ColumnDefinition x:Name="RightAreaColumn" Width="Auto" />
+                            <ColumnDefinition x:Name="WindowsButtonsColumn" Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <ContentControl
+                            x:Name="PART_Icon"
+                            Height="{Binding TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            MinWidth="{Binding TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Panel.ZIndex="1"
+                            Content="{TemplateBinding IconArea}"
+                            ContentTemplate="{TemplateBinding IconTemplate}"
+                            Focusable="False" />
+
+                        <ContentControl
+                            x:Name="PART_LeftArea"
+                            Grid.Column="1"
+                            Content="{TemplateBinding TitleBarLeftArea}"
+                            Foreground="{TemplateBinding TitleBarForeground}" />
+
+                        <ContentControl
+                            Name="PART_Title"
+                            Grid.Column="2"
+                            Margin="10,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}"
+                            ContentTemplate="{TemplateBinding TitleTemplate}"
+                            FontSize="14"
+                            FontWeight="DemiBold"
+                            Foreground="{TemplateBinding TitleBarForeground}" />
+
+                        <ContentControl
+                            x:Name="PART_RightArea"
+                            Grid.Column="3"
+                            Content="{TemplateBinding TitleBarRightArea}"
+                            Foreground="{TemplateBinding TitleBarForeground}" />
+
+                        <Grid x:Name="WindowsButtonsGrid" Grid.Column="4">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition x:Name="IconColumn" Width="Auto" />
-                                <ColumnDefinition x:Name="LeftAreaColumn" Width="Auto" />
-                                <ColumnDefinition x:Name="TitleColumn" Width="*" />
-                                <ColumnDefinition x:Name="RightAreaColumn" Width="Auto" />
-                                <ColumnDefinition x:Name="WindowsButtonsColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="MinimazeButtonColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="MaximizeRestoreButtonColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="CloseButtonColumn" Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <ContentControl
-                                x:Name="PART_Icon"
-                                Height="{Binding TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                MinWidth="{Binding TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                HorizontalContentAlignment="Stretch"
-                                VerticalContentAlignment="Stretch"
-                                Panel.ZIndex="1"
-                                Content="{TemplateBinding IconArea}"
-                                ContentTemplate="{TemplateBinding IconTemplate}"
-                                Focusable="False" />
+                            <Button
+                                x:Name="PART_MinimizeButton"
+                                Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                                Content="&#xE921;"
+                                Foreground="{TemplateBinding TitleBarForeground}"
+                                Style="{StaticResource WindowButtonsStyle}"
+                                ToolTip="Minimizar" />
 
-                            <ContentControl
-                                x:Name="PART_LeftArea"
+                            <Button
+                                x:Name="PART_MaximizeRestoreButton"
                                 Grid.Column="1"
-                                Content="{TemplateBinding TitleBarLeftArea}"
-                                Foreground="{TemplateBinding TitleBarForeground}" />
+                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                Content="&#xE922;"
+                                Foreground="{TemplateBinding TitleBarForeground}"
+                                Style="{StaticResource WindowButtonsStyle}"
+                                ToolTip="Maximizar" />
 
-                            <ContentControl
-                                Name="PART_Title"
+                            <Button
+                                Name="PART_CloseButton"
                                 Grid.Column="2"
-                                Margin="10,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}"
-                                ContentTemplate="{TemplateBinding TitleTemplate}"
-                                FontSize="14"
-                                FontWeight="DemiBold"
-                                Foreground="{TemplateBinding TitleBarForeground}" />
-
-                            <ContentControl
-                                x:Name="PART_RightArea"
-                                Grid.Column="3"
-                                Content="{TemplateBinding TitleBarRightArea}"
-                                Foreground="{TemplateBinding TitleBarForeground}" />
-
-                            <Grid x:Name="WindowsButtonsGrid" Grid.Column="4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition x:Name="MinimazeButtonColumn" Width="Auto" />
-                                    <ColumnDefinition x:Name="MaximizeRestoreButtonColumn" Width="Auto" />
-                                    <ColumnDefinition x:Name="CloseButtonColumn" Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <Button
-                                    x:Name="PART_MinimizeButton"
-                                    Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
-                                    Content="&#xE921;"
-                                    Foreground="{TemplateBinding TitleBarForeground}"
-                                    Style="{StaticResource WindowButtonsStyle}"
-                                    ToolTip="Minimizar" />
-
-                                <Button
-                                    x:Name="PART_MaximizeRestoreButton"
-                                    Grid.Column="1"
-                                    Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
-                                    Content="&#xE922;"
-                                    Foreground="{TemplateBinding TitleBarForeground}"
-                                    Style="{StaticResource WindowButtonsStyle}"
-                                    ToolTip="Maximizar" />
-
-                                <Button
-                                    Name="PART_CloseButton"
-                                    Grid.Column="2"
-                                    Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
-                                    Content="&#xE8BB;"
-                                    Foreground="{TemplateBinding TitleBarForeground}"
-                                    Style="{StaticResource CloseButtonStyle}"
-                                    ToolTip="Fechar" />
-                            </Grid>
-                        </Grid>
-
-                        <Grid
-                            x:Name="ContentGrid"
-                            Grid.Row="1"
-                            Margin="0,-0.6,0,0"
-                            Background="{TemplateBinding Background}">
-                            <AdornerDecorator>
-                                <ContentPresenter Content="{TemplateBinding Content}" />
-                            </AdornerDecorator>
-                        </Grid>
-
-                        <Grid
-                            x:Name="OverlayGrid"
-                            Grid.RowSpan="2"
-                            Background="{TemplateBinding OverlayBackground}"
-                            Visibility="Collapsed" />
-
-                        <Grid Grid.RowSpan="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid
-                                x:Name="OverlayContentGrid"
-                                Grid.Row="1"
-                                Background="{TemplateBinding MessageBackground}"
-                                Opacity="0.0"
-                                Visibility="Collapsed">
-                                <Grid.Effect>
-                                    <DropShadowEffect
-                                        BlurRadius="10"
-                                        ShadowDepth="1"
-                                        Color="#7F000000" />
-                                </Grid.Effect>
-                                <ContentPresenter Content="{TemplateBinding Message}" />
-                            </Grid>
+                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                                Content="&#xE8BB;"
+                                Foreground="{TemplateBinding TitleBarForeground}"
+                                Style="{StaticResource CloseButtonStyle}"
+                                ToolTip="Fechar" />
                         </Grid>
                     </Grid>
-                </Border>
-            </Grid>
-        </Border>
+
+                    <Grid
+                        x:Name="ContentGrid"
+                        Grid.Row="1"
+                        Margin="0,-0.6,0,0"
+                        Background="{TemplateBinding Background}">
+                        <AdornerDecorator>
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+                        </AdornerDecorator>
+                    </Grid>
+
+                    <Grid
+                        x:Name="OverlayGrid"
+                        Grid.RowSpan="2"
+                        Background="{TemplateBinding OverlayBackground}"
+                        Visibility="Collapsed" />
+
+                    <Grid Grid.RowSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid
+                            x:Name="OverlayContentGrid"
+                            Grid.Row="1"
+                            Background="{TemplateBinding MessageBackground}"
+                            Opacity="0.0"
+                            Visibility="Collapsed">
+                            <Grid.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="10"
+                                    ShadowDepth="1"
+                                    Color="#7F000000" />
+                            </Grid.Effect>
+                            <ContentPresenter Content="{TemplateBinding Message}" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
 
         <ControlTemplate.Triggers>
 
@@ -463,6 +444,7 @@
             </Trigger>
 
             <Trigger Property="ShowMessage" Value="True">
+
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
@@ -523,13 +505,276 @@
             </Setter.Value>
         </Setter>
         <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+        <Setter Property="AllowsTransparency" Value="False" />
         <Setter Property="Background" Value="White" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="#FF1B1B1B" />
         <Setter Property="Template" Value="{StaticResource CWindowTemplate}" />
     </Style>
 
-    <Style TargetType="{x:Type local:CustomWindow}">
+    <ControlTemplate x:Key="CustomWindowTemplate" TargetType="local:CustomWindow">
+        <Grid>
+            <Border
+                x:Name="OutterBorder"
+                Margin="{TemplateBinding Margin}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+
+                <Grid x:Name="rootLayout">
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="TitleBarRow" Height="{TemplateBinding TitleBarHeight, Converter={StaticResource DoubleToGridlenghtConverter}}" />
+                        <RowDefinition x:Name="ClientAreaRow" />
+                    </Grid.RowDefinitions>
+
+                    <!--<Grid Background="{TemplateBinding TitleBarBackground}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="IconColumn" Width="Auto" />
+                            <ColumnDefinition x:Name="LeftAreaColumn" Width="Auto" />
+                            <ColumnDefinition x:Name="TitleColumn" Width="*" />
+                            <ColumnDefinition x:Name="RightAreaColumn" Width="Auto" />
+                            <ColumnDefinition x:Name="WindowsButtonsColumn" Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <ContentControl
+                            x:Name="PART_Icon"
+                            Height="{Binding TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            MinWidth="{Binding TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Panel.ZIndex="1"
+                            Content="{TemplateBinding IconArea}"
+                            ContentTemplate="{TemplateBinding IconTemplate}"
+                            Focusable="False" />
+
+                        <ContentControl
+                            x:Name="PART_LeftArea"
+                            Grid.Column="1"
+                            Content="{TemplateBinding TitleBarLeftArea}"
+                            Foreground="{TemplateBinding TitleBarForeground}" />
+
+                        <ContentControl
+                            Name="PART_Title"
+                            Grid.Column="2"
+                            Margin="10,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}"
+                            ContentTemplate="{TemplateBinding TitleTemplate}"
+                            FontSize="14"
+                            FontWeight="DemiBold"
+                            Foreground="{TemplateBinding TitleBarForeground}" />
+
+                        <ContentControl
+                            x:Name="PART_RightArea"
+                            Grid.Column="3"
+                            Content="{TemplateBinding TitleBarRightArea}"
+                            Foreground="{TemplateBinding TitleBarForeground}" />
+
+                        <Grid x:Name="WindowsButtonsGrid" Grid.Column="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="MinimazeButtonColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="MaximizeRestoreButtonColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="CloseButtonColumn" Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                x:Name="PART_MinimizeButton"
+                                Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                                Content="&#xE921;"
+                                Foreground="{TemplateBinding TitleBarForeground}"
+                                Style="{StaticResource WindowButtonsStyle}"
+                                ToolTip="Minimizar" />
+
+                            <Button
+                                x:Name="PART_MaximizeRestoreButton"
+                                Grid.Column="1"
+                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                Content="&#xE922;"
+                                Foreground="{TemplateBinding TitleBarForeground}"
+                                Style="{StaticResource WindowButtonsStyle}"
+                                ToolTip="Maximizar" />
+
+                            <Button
+                                Name="PART_CloseButton"
+                                Grid.Column="2"
+                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                                Content="&#xE8BB;"
+                                Foreground="{TemplateBinding TitleBarForeground}"
+                                Style="{StaticResource CloseButtonStyle}"
+                                ToolTip="Fechar" />
+                        </Grid>
+                    </Grid>-->
+
+                    <Grid x:Name="TitleBarGrid" Background="{TemplateBinding TitleBarBackground}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="CustomTitleBarColumnDefinition" />
+                            <ColumnDefinition x:Name="ButtonsColumnDefinition" Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <ContentControl
+                            x:Name="PART_TitleBar"
+                            Foreground="{TemplateBinding TitleBarForeground}"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Panel.ZIndex="1"
+                            Content="{TemplateBinding TitleBar}" />
+
+                        <Grid x:Name="WindowsButtonsGrid" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="MinimazeButtonColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="MaximizeRestoreButtonColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="CloseButtonColumn" Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                x:Name="PART_MinimizeButton"
+                                Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                                Content="&#xE921;"
+                                Foreground="{TemplateBinding TitleBarForeground}"
+                                Style="{StaticResource WindowButtonsStyle}"
+                                ToolTip="Minimizar" />
+
+                            <Button
+                                x:Name="PART_MaximizeRestoreButton"
+                                Grid.Column="1"
+                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                Content="&#xE922;"
+                                Foreground="{TemplateBinding TitleBarForeground}"
+                                Style="{StaticResource WindowButtonsStyle}"
+                                ToolTip="Maximizar" />
+
+                            <Button
+                                Name="PART_CloseButton"
+                                Grid.Column="2"
+                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                                Content="&#xE8BB;"
+                                Foreground="{TemplateBinding TitleBarForeground}"
+                                Style="{StaticResource CloseButtonStyle}"
+                                ToolTip="Fechar" />
+                        </Grid>
+                    </Grid>
+
+                    <Grid
+                        x:Name="ContentGrid"
+                        Grid.Row="1"
+                        Margin="0,-0.6,0,0"
+                        Background="{TemplateBinding Background}">
+                        <AdornerDecorator>
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+                        </AdornerDecorator>
+                    </Grid>
+
+                    <Grid
+                        x:Name="OverlayGrid"
+                        Grid.RowSpan="2"
+                        Background="{TemplateBinding OverlayBackground}"
+                        Visibility="Collapsed" />
+
+                    <Grid Grid.RowSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid
+                            x:Name="OverlayContentGrid"
+                            Grid.Row="1"
+                            Background="{TemplateBinding MessageBackground}"
+                            Opacity="0.0"
+                            Visibility="Collapsed">
+                            <Grid.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="10"
+                                    ShadowDepth="1"
+                                    Color="#7F000000" />
+                            </Grid.Effect>
+                            <ContentPresenter Content="{TemplateBinding Message}" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+
+            <Trigger Property="IsActive" Value="False">
+                <Setter TargetName="OutterBorder" Property="BorderBrush" Value="{StaticResource InactiveForegroundBrush}" />
+                <!--<Setter TargetName="PART_Title" Property="Foreground" Value="{StaticResource InactiveForegroundBrush}" />
+                <Setter TargetName="PART_RightArea" Property="Foreground" Value="{StaticResource InactiveForegroundBrush}" />
+                <Setter TargetName="PART_MinimizeButton" Property="Foreground" Value="{StaticResource InactiveForegroundBrush}" />
+                <Setter TargetName="PART_MaximizeRestoreButton" Property="Foreground" Value="{StaticResource InactiveForegroundBrush}" />
+                <Setter TargetName="PART_CloseButton" Property="Foreground" Value="{StaticResource InactiveForegroundBrush}" />-->
+            </Trigger>
+
+            <Trigger Property="ShowMessage" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OverlayGrid" Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OverlayContentGrid" Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimation
+                                Storyboard.TargetName="OverlayGrid"
+                                Storyboard.TargetProperty="Opacity"
+                                To="0.7"
+                                Duration="0:0:0.3" />
+                            <DoubleAnimation
+                                Storyboard.TargetName="OverlayContentGrid"
+                                Storyboard.TargetProperty="Opacity"
+                                To="1"
+                                Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="OverlayGrid"
+                                Storyboard.TargetProperty="Opacity"
+                                To="0.0"
+                                Duration="0:0:0.3" />
+                            <DoubleAnimation
+                                Storyboard.TargetName="OverlayContentGrid"
+                                Storyboard.TargetProperty="Opacity"
+                                To="0.0"
+                                Duration="0:0:0.3" />
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OverlayGrid" Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.4" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OverlayContentGrid" Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.4" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="local:CustomWindow">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome
+                    CaptionHeight="42.0"
+                    CornerRadius="0"
+                    ResizeBorderThickness="6" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+        <Setter Property="AllowsTransparency" Value="False" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="#FF1B1B1B" />
+        <Setter Property="Template" Value="{StaticResource CustomWindowTemplate}" />
+    </Style>
+
+
+    <!--<Style TargetType="{x:Type local:CustomWindow}">
         <Setter Property="Background" Value="Red" />
         <Setter Property="WindowStyle" Value="SingleBorderWindow" />
         <Setter Property="AllowsTransparency" Value="False" />
@@ -546,13 +791,17 @@
                 <ControlTemplate TargetType="{x:Type local:CustomWindow}">
                     <Border>
                         <Grid>
-                            <!--  Opacity Mask for corners on grid  -->
+    -->
+    <!--  Opacity Mask for corners on grid  -->
+    <!--
                             <Border
                                 x:Name="Container"
                                 Background="{TemplateBinding TitleBarBackground}"
                                 CornerRadius="{TemplateBinding CornerRadius}" />
 
-                            <!--  Window border and dropshadow  -->
+    -->
+    <!--  Window border and dropshadow  -->
+    <!--
                             <Border
                                 Background="{TemplateBinding TitleBarBackground}"
                                 CornerRadius="{TemplateBinding CornerRadius}">
@@ -592,5 +841,5 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 </ResourceDictionary>
