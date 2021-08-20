@@ -680,7 +680,7 @@
                         <Grid
                             x:Name="OverlayContentGrid"
                             Grid.Row="1"
-                            Background="{TemplateBinding MessageBackground}"
+                            Background="{TemplateBinding CustomDialogBackground}"
                             Opacity="0.0"
                             Visibility="Collapsed">
                             <Grid.Effect>
@@ -689,7 +689,7 @@
                                     ShadowDepth="1"
                                     Color="#7F000000" />
                             </Grid.Effect>
-                            <ContentPresenter Content="{TemplateBinding Message}" />
+                            <ContentPresenter Content="{TemplateBinding CustomDialog}" />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -700,6 +700,7 @@
 
             <Trigger Property="IsActive" Value="False">
                 <Setter TargetName="OutterBorder" Property="BorderBrush" Value="{StaticResource InactiveForegroundBrush}" />
+                <Setter TargetName="TitleBarGrid" Property="TextElement.Foreground" Value="{StaticResource InactiveForegroundBrush}" />
                 <!--<Setter TargetName="PART_Title" Property="Foreground" Value="{StaticResource InactiveForegroundBrush}" />
                 <Setter TargetName="PART_RightArea" Property="Foreground" Value="{StaticResource InactiveForegroundBrush}" />
                 <Setter TargetName="PART_MinimizeButton" Property="Foreground" Value="{StaticResource InactiveForegroundBrush}" />
@@ -707,7 +708,7 @@
                 <Setter TargetName="PART_CloseButton" Property="Foreground" Value="{StaticResource InactiveForegroundBrush}" />-->
             </Trigger>
 
-            <Trigger Property="ShowMessage" Value="True">
+            <Trigger Property="ShowCustomDialog" Value="True">
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
