@@ -6,10 +6,25 @@
 
     public partial class CustomWindow
     {
-        private string teste = "teste";
+        /// <summary>
+        /// Shadows the WindowStyle property to prevent it from being changed from WindowStyle.None . </summary>
+        /// <remarks>
+        public new WindowStyle WindowStyle
+        {
+            get => (WindowStyle)GetValue(WindowStyleProperty);
+            set => SetValue(WindowStyleProperty, value);
+        }
 
         /// <summary>
-        /// Gets or sets the TitleBar
+        /// Shadows the AllowsTransparency property to prevent it from being changed from AllowTransparency = True.
+        /// </summary>
+        public new bool AllowsTransparency
+        {
+            get => (bool)GetValue(AllowsTransparencyProperty);
+            set => SetValue(AllowsTransparencyProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a FrameworkElement value that represents a non-client title bar area except the buttons area..
         /// </summary>
         [Category(Comum)]
@@ -30,7 +45,6 @@
         public Brush TitleBarForeground { get => (Brush)GetValue(TitleBarForegroundProperty); set => SetValue(TitleBarForegroundProperty, value); }
 
         /// <summary>
-        /// Gets or sets a value indicating whether TitleBarForegroundIsAutomated
         /// Gets or sets a Boolean value representing whether or not the title bar foreground will automatically adapt to a new background..
         /// </summary>
         [Category(Comum)]
@@ -50,7 +64,6 @@
         public Brush OverlayBackground { get => (Brush)GetValue(OverlayBackgroundProperty); set => SetValue(OverlayBackgroundProperty, value); }
 
         /// <summary>
-        /// Gets or sets a value indicating whether ShowCustomDialog
         /// Gets or sets the visibility of the layer that covers the window..
         /// </summary>
         [Category(Comum)]
@@ -58,7 +71,6 @@
         public bool ShowCustomDialog { get => (bool)GetValue(ShowCustomDialogProperty); set => SetValue(ShowCustomDialogProperty, value); }
 
         /// <summary>
-        /// Gets or sets the CustomDialog
         /// Gets or sets a FrameworkElement that represents an interactive modal control that will only be visible if the ShowCustomDialog property is true..
         /// </summary>
         [Category(Comum)]
@@ -66,7 +78,6 @@
         public FrameworkElement CustomDialog { get => (FrameworkElement)GetValue(CustomDialogProperty); set => SetValue(CustomDialogProperty, value); }
 
         /// <summary>
-        /// Gets or sets the CustomDialogBackground
         /// Gets or sets a brush representing the background of the CustomDialog element..
         /// </summary>
         [Category(Comum)]
@@ -74,7 +85,6 @@
         public Brush CustomDialogBackground { get => (Brush)GetValue(CustomDialogBackgroundProperty); set => SetValue(CustomDialogBackgroundProperty, value); }
 
         /// <summary>
-        /// Gets or sets the MinTitleBarHeight
         /// Gets or sets a double value representing the minimum title bar's height..
         /// </summary>
         [Category(Comum)]
@@ -82,7 +92,6 @@
         public double MinTitleBarHeight { get => (double)GetValue(MinTitleBarHeightProperty); set => SetValue(MinTitleBarHeightProperty, value); }
 
         /// <summary>
-        /// Gets or sets a value indicating whether KioskMode
         /// Gets or sets a Boolean value representing whether KioskMode is turned on/off..
         /// </summary>
         [Category(Comum)]
@@ -90,7 +99,6 @@
         public bool KioskMode { get => (bool)GetValue(KioskModeProperty); set => SetValue(KioskModeProperty, value); }
 
         /// <summary>
-        /// Gets or sets the KioskModeExitKeyGesture
         /// Gets or sets a key combination that turns off kiosk mode..
         /// </summary>
         [Category(Comum)]

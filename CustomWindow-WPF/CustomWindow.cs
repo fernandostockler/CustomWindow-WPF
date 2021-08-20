@@ -358,6 +358,7 @@
 
                     _ => false,
                 };
+
                 if ( match && (e.Key == KioskModeExitKeyGesture.Key || e.SystemKey == KioskModeExitKeyGesture.Key) )
                 {
                     e.Handled = true;
@@ -416,11 +417,6 @@
         /// Defines the RestoreToolTip.
         /// </summary>
         private const string RestoreToolTip = "Restaurar";
-
-        /// <summary>
-        /// Defines the Aparência.
-        /// </summary>
-        private const string Aparência = "Aparência";
 
         /// <summary>
         /// Defines the Comum.
