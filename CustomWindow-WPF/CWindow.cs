@@ -209,8 +209,8 @@
             CWindow win = (CWindow)d;
             Brush newValue = (Brush)e.NewValue;
             BackgroundToForegroundConverter converter = BackgroundToForegroundConverter.Instance;
-            Brush newIdealForeground = converter.Convert(newValue, typeof(Brush), new object(), CultureInfo.CurrentCulture) as Brush;
-            win.OnTitleBarBackgroundChanged(newIdealForeground);
+            Brush? newIdealForeground = converter.Convert(newValue, typeof(Brush), new object(), CultureInfo.CurrentCulture) as Brush;
+            win.TitleBarForeground = newIdealForeground;
         }
 
         /// <summary>
@@ -219,9 +219,9 @@
         /// <param name="newValue">The newValue<see cref="Brush"/>.</param>
         private void OnTitleBarBackgroundChanged(Brush newValue)
         {
-            Brush oldValue = TitleBarForeground;
+            //Brush oldValue = TitleBarForeground;
             TitleBarForeground = newValue;
-            OnPropertyChanged(new(TitleBarForegroundProperty, oldValue, newValue));
+            //OnPropertyChanged(new(TitleBarForegroundProperty, oldValue, newValue));
         }
 
         /// <summary>

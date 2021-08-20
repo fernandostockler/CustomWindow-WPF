@@ -193,14 +193,10 @@
                 propertyChangedCallback: (d, e) =>
                 {
                     CustomWindow win = (CustomWindow)d;
-
                     Brush newValue = (Brush)e.NewValue;
 
-                    BackgroundToForegroundConverter converter = BackgroundToForegroundConverter.Instance;
-
-                    Brush? newIdealForeground = converter.Convert(newValue, typeof(Brush), new object(), CultureInfo.CurrentCulture) as Brush;
-
-                    Brush oldValue = win.TitleBarForeground;
+                    Brush? newIdealForeground = BackgroundToForegroundConverter.Instance
+                        .Convert(newValue, typeof(Brush), new object(), CultureInfo.CurrentCulture) as Brush;
 
                     win.TitleBarForeground = win.TitleBarForegroundIsAutomated
                         ? newIdealForeground ?? SystemColors.HotTrackBrush
