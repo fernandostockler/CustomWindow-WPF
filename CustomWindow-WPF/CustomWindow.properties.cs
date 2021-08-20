@@ -7,8 +7,8 @@
     public partial class CustomWindow
     {
         /// <summary>
-        /// Shadows the WindowStyle property to prevent it from being changed from WindowStyle.None . </summary>
-        /// <remarks>
+        /// Shadows the WindowStyle property to prevent it from being changed from WindowStyle.None .
+        /// </summary>
         public new WindowStyle WindowStyle
         {
             get => (WindowStyle)GetValue(WindowStyleProperty);

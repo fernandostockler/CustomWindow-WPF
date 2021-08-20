@@ -210,7 +210,7 @@
             Brush newValue = (Brush)e.NewValue;
             BackgroundToForegroundConverter converter = BackgroundToForegroundConverter.Instance;
             Brush? newIdealForeground = converter.Convert(newValue, typeof(Brush), new object(), CultureInfo.CurrentCulture) as Brush;
-            win.TitleBarForeground = newIdealForeground;
+            win.TitleBarForeground = newIdealForeground ?? new SolidColorBrush(Colors.White);
         }
 
         /// <summary>
@@ -326,9 +326,9 @@
         /// </summary>
         /// <param name="sender">The sender<see cref="object"/>.</param>
         /// <param name="e">The e<see cref="EventArgs"/>.</param>
-        private void CWindow_StateChanged(object sender, EventArgs e)
+        private void CWindow_StateChanged(object? sender, EventArgs e)
         {
-            bool WindowStateIsNormal = (WindowState == WindowState.Normal);
+            bool WindowStateIsNormal = WindowState == WindowState.Normal;
             MaximizeRestoreButton.Content = WindowStateIsNormal ? RestoreGlyph : MaximizeGlyph;
             MaximizeRestoreButton.ToolTip = WindowStateIsNormal ? MaximizeToolTip : RestoreToolTip;
             // Corrige o problema que ocorre quando a janela é maximizada
@@ -415,12 +415,12 @@
         /// <summary>
         /// Gets the MaximizeRestoreButton.
         /// </summary>
-        internal Button MaximizeRestoreButton { get; private set; }
+        internal Button MaximizeRestoreButton { get; private set; } = new();
 
         /// <summary>
         /// Gets the OutterBorder.
         /// </summary>
-        internal Border OutterBorder { get; private set; }
+        internal Border OutterBorder { get; private set; } = new();
 
         /// <summary>
         /// Defines the NormalThickness.
