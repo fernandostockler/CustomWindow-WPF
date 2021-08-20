@@ -8,14 +8,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="customWindow"
     Title="CustomWindow Sample"
-    Width="800"
+    Width="800" KioskMode="True"
     Height="450"
     Icon="/Death Star - 1st (2015_09_19 07_11_09 UTC).ico"
-    mc:Ignorable="d" WindowStartupLocation="CenterScreen">
+    TitleBarBackground="DarkOliveGreen"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <cw:CustomWindow.TitleBar>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Image

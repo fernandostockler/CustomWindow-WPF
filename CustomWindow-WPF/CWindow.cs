@@ -209,7 +209,7 @@
             CWindow win = (CWindow)d;
             Brush newValue = (Brush)e.NewValue;
             BackgroundToForegroundConverter converter = BackgroundToForegroundConverter.Instance;
-            Brush newIdealForeground = converter.Convert(newValue, typeof(Brush), null, CultureInfo.CurrentCulture) as Brush;
+            Brush newIdealForeground = converter.Convert(newValue, typeof(Brush), new object(), CultureInfo.CurrentCulture) as Brush;
             win.OnTitleBarBackgroundChanged(newIdealForeground);
         }
 

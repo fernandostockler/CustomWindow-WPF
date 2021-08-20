@@ -30,10 +30,7 @@
         /// <summary>
         /// Initializes static members of the <see cref="CustomWindow"/> class.
         /// </summary>
-        static CustomWindow()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomWindow), new FrameworkPropertyMetadata(typeof(CustomWindow)));
-        }
+        static CustomWindow() => DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomWindow), new FrameworkPropertyMetadata(typeof(CustomWindow)));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomWindow"/> class.
@@ -52,7 +49,7 @@
         /// <summary>
         /// The CustomWindow_Loaded.
         /// </summary>
-        /// <param name="sender">The sender<see cref="object?"/>.</param>
+        /// <param name="sender">The sender<see cref="Nullable{Object}"/>.</param>
         /// <param name="e">The e<see cref="RoutedEventArgs"/>.</param>
         private void CustomWindow_Loaded(object? sender, RoutedEventArgs e)
         {
@@ -65,7 +62,7 @@
         /// <summary>
         /// The CustomWindow_StateChanged.
         /// </summary>
-        /// <param name="sender">The sender<see cref="object?"/>.</param>
+        /// <param name="sender">The sender<see cref="Nullable{Object}"/>.</param>
         /// <param name="e">The e<see cref="EventArgs"/>.</param>
         private void CustomWindow_StateChanged(object? sender, EventArgs e)
         {
@@ -118,7 +115,8 @@
 
                 coerceValueCallback: (d, baseValue) =>
                 {
-                    return (baseValue is double value && value < 36.0) ? 36.0 : baseValue;
+                    CustomWindow win = (CustomWindow)d;
+                    return (baseValue is double value && value < win.MinTitleBarHeight) ? win.MinTitleBarHeight : baseValue;
                 }),
 
                 validateValueCallback: (value) => value switch
@@ -339,6 +337,7 @@
 
             if ( newValue )
             {
+                WindowStyle = WindowStyle.None;
                 WindowState = WindowState.Normal;
                 WindowState = WindowState.Maximized;
                 MinTitleBarHeight = 0.0;
@@ -347,6 +346,7 @@
             }
             else
             {
+                WindowStyle = WindowStyle.SingleBorderWindow;
                 MinTitleBarHeight = 36.0;
                 TitleBarHeight = OriginalTitleBarHeight;
             }
@@ -438,12 +438,12 @@
         /// <summary>
         /// Gets the MaximizeRestoreButton.
         /// </summary>
-        internal Button MaximizeRestoreButton { get; private set; }
+        internal Button MaximizeRestoreButton { get; private set; } = new();
 
         /// <summary>
         /// Gets the OutterBorder.
         /// </summary>
-        internal Border OutterBorder { get; private set; }
+        internal Border OutterBorder { get; private set; } = new();
 
         /// <summary>
         /// Defines the MaximizeGlyph.

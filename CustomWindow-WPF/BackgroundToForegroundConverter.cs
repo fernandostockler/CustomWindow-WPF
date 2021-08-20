@@ -45,7 +45,7 @@
         /// <param name="parameter">The parameter<see cref="object"/>.</param>
         /// <param name="culture">The culture<see cref="CultureInfo"/>.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
             if ( value is SolidColorBrush brush && brush != null )
             {
