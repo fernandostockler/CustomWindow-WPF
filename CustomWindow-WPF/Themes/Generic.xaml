@@ -113,11 +113,11 @@
 
                         <ContentControl
                             x:Name="PART_TitleBar"
-                            Foreground="{TemplateBinding TitleBarForeground}"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"
                             Panel.ZIndex="1"
-                            Content="{TemplateBinding TitleBar}" />
+                            Content="{TemplateBinding TitleBar}"
+                            Foreground="{TemplateBinding TitleBarForeground}" />
 
                         <Grid x:Name="WindowsButtonsGrid" Grid.Column="1">
                             <Grid.ColumnDefinitions>

@@ -12,6 +12,7 @@
     <PackageTags>wpf;custom-window;kiosk-window;modal-window</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>beaker_114x128.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,11 +26,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="beaker_114x128.png" />
     <None Remove="Images\CustomWindow v1 Customizable area in orange.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow gray sample1.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow sample1.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow search xaml.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="beaker_114x128.png" />
   </ItemGroup>
 
   <ItemGroup>
