@@ -27,7 +27,7 @@
         private Thickness NormalThickness = new(0);
 
         /// <summary>
-        /// Defines the OriginalTitleBarHeight.
+        /// Defines the OriginalTitleBarHeight. 
         /// </summary>
         private double OriginalTitleBarHeight = 42.0;
 

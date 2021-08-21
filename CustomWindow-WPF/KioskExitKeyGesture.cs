@@ -7,7 +7,7 @@
     /// <summary>
     /// This class represents a keyboard key and its modifiers.
     /// </summary>
-    public class KioskExitKeyGesture
+    public class KioskExitKeyGesture 
     {
         /// <summary>
         /// Gets the ModifierKeys.

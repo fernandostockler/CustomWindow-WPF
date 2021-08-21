@@ -7,7 +7,7 @@
     /// Defines the <see cref="MissingTemplatePartException" />.
     /// </summary>
     [Serializable]
-    internal class MissingTemplatePartException : Exception
+    internal class MissingTemplatePartException : Exception 
     {
         /// <summary>
         /// Gets the PartName.

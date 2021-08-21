@@ -1,4 +1,4 @@
-﻿namespace CustomWindow_WPF
+﻿namespace CustomWindow_WPF 
 {
     using System;
     using System.Globalization;
