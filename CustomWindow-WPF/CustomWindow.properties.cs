@@ -12,7 +12,7 @@
         /// <summary>
         /// Shadows the WindowStyle property to prevent it from being changed from WindowStyle.None ..
         /// </summary>
-        public new WindowStyle WindowStyle
+        public new WindowStyle WindowStyle 
         {
             get => (WindowStyle)GetValue(WindowStyleProperty);
             internal set => SetValue(WindowStyleProperty, value);
