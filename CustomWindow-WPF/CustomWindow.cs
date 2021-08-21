@@ -38,7 +38,7 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomWindow"/> class.
-        /// </summary>
+        /// </summary>   gfg fg fgjjh kjjkh uoiçi hlki çlkjtets ghdt yy ftyft jhyuku
         public CustomWindow()
         {
             _ = CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, CloseWindow));

@@ -1,4 +1,4 @@
-﻿<cw:CWindow
+﻿<cw:CustomWindow
     x:Class="CustomWindow_WPF.SampleApp.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -15,8 +15,8 @@
     Icon="/Death Star - 1st (2015_09_19 07_11_09 UTC).ico"
     TitleBarHeight="46"
     mc:Ignorable="d">
-    <cw:CWindow.IconArea>
+    <cw:CustomWindow.TitleBar>
         <Image Margin="3" Source="{Binding Icon, ElementName=customWindow}" />
-    </cw:CWindow.IconArea>
+    </cw:CustomWindow.TitleBar>
     <Grid Background="Crimson" />
-</cw:CWindow>
+</cw:CustomWindow>

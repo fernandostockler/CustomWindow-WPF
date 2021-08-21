@@ -12,7 +12,7 @@
         public new WindowStyle WindowStyle
         {
             get => (WindowStyle)GetValue(WindowStyleProperty);
-            set => SetValue(WindowStyleProperty, value);
+            internal set => SetValue(WindowStyleProperty, value);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@
         public new bool AllowsTransparency
         {
             get => (bool)GetValue(AllowsTransparencyProperty);
-            set => SetValue(AllowsTransparencyProperty, value);
+            internal set => SetValue(AllowsTransparencyProperty, value);
         }
 
         /// <summary>
@@ -80,7 +80,6 @@
         /// <summary>
         /// Gets or sets a brush representing the background of the CustomDialog element..
         /// </summary>
-        [Category(Comum)]
         [Description("Gets or sets a brush representing the background of the CustomDialog element.")]
         public Brush CustomDialogBackground { get => (Brush)GetValue(CustomDialogBackgroundProperty); set => SetValue(CustomDialogBackgroundProperty, value); }
 
