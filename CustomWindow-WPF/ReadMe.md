@@ -25,4 +25,4 @@ It is a window that allows customization of the non-client area, has a kiosk mod
     </td>
   </tr>
 </table>
- 
+ ![Custom Window V1 Customizable Area In Orange](Images/CustomWindow v1 Customizable area in orange.png)

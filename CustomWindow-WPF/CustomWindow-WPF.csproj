@@ -8,11 +8,15 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>fernandostockler</Authors>
-    <Description>It is a window that allows customization of the non-client area, has a kiosk mode and has a mechanism for displaying modal content</Description>
+    <Description>It is a window that allows customization of the non-client area, has a kiosk mode and has a mechanism for displaying modal content.</Description>
     <PackageTags>wpf;custom-window;kiosk-window;modal-window</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>beaker_114x128.png</PackageIcon>
+    <RepositoryUrl>https://github.com/fernandostockler/CustomWindow-WPF</RepositoryUrl>
+    <Summary>It is a window that allows customization of the non-client area, has a kiosk mode and has a mechanism for displaying modal content</Summary>
+    <Title>CustomWindow-WPF</Title>
+
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,16 +30,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="beaker_114x128.png" />
+    <None Include="beaker_114x128.png" Pack="true" PackagePath="\" />
     <None Remove="Images\CustomWindow v1 Customizable area in orange.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow gray sample1.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow sample1.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow search xaml.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow search.png" />
+    <None Remove="ReadMe.md" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="beaker_114x128.png" />
+    <Content Include="ReadMe.md" >
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
