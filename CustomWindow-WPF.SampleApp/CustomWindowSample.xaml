@@ -4,14 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cw="clr-namespace:CustomWindow_WPF;assembly=CustomWindow-WPF"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:CustomWindow_WPF.SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="customWindow"
-    Title="CustomWindow Sample"
+    Title="CustomWindow sample"
     Width="800"
     Height="450"
-    Icon="/Death Star - 1st (2015_09_19 07_11_09 UTC).ico"
-    TitleBarBackground="DarkOliveGreen"
+    Background="DarkGray"
+    Icon="/Death Star.ico"
+    TitleBarBackground="#222"
+    TitleBarHeight="70"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <cw:CustomWindow.TitleBar>
@@ -19,10 +20,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Image
                 Grid.Column="0"
-                Margin="3,3,3,3"
+                Margin="5"
                 VerticalAlignment="Center"
                 Source="{Binding Icon, ElementName=customWindow}" />
             <TextBlock
@@ -31,6 +33,26 @@
                 VerticalAlignment="Center"
                 FontSize="16"
                 Text="{Binding Title, ElementName=customWindow}" />
+            <Border
+                Grid.Column="2"
+                Margin="0,11,10,0"
+                VerticalAlignment="Top"
+                BorderBrush="LightGray"
+                BorderThickness="1">
+                <StackPanel Orientation="Horizontal" TextElement.Foreground="Silver">
+                    <TextBox
+                        Width="100"
+                        Background="{Binding ElementName=customWindow, Path=TitleBarBackground}"
+                        BorderThickness="0"
+                        Foreground="Silver"
+                        Text="Search"
+                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                    <TextBlock
+                        Margin="3"
+                        FontFamily="Segoe MDL2 Assets"
+                        Text="&#xE11A;" />
+                </StackPanel>
+            </Border>
         </Grid>
     </cw:CustomWindow.TitleBar>
     <Grid>

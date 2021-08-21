@@ -8,7 +8,7 @@
     /// <summary>
     /// Defines the <see cref="DoubleToGridlenghtConverter" />.
     /// </summary>
-    public class DoubleToGridlenghtConverter : IValueConverter
+    internal class DoubleToGridlenghtConverter : IValueConverter
     {
         /// <summary>
         /// The Convert.

@@ -14,7 +14,8 @@
         /// </summary>
         public new WindowStyle WindowStyle
         {
-            get => (WindowStyle)GetValue(WindowStyleProperty); internal set => SetValue(WindowStyleProperty, value);
+            get => (WindowStyle)GetValue(WindowStyleProperty);
+            internal set => SetValue(WindowStyleProperty, value);
         }
 
         /// <summary>
@@ -22,7 +23,8 @@
         /// </summary>
         public new bool AllowsTransparency
         {
-            get => (bool)GetValue(AllowsTransparencyProperty); internal set => SetValue(AllowsTransparencyProperty, value);
+            get => (bool)GetValue(AllowsTransparencyProperty);
+            internal set => SetValue(AllowsTransparencyProperty, value);
         }
 
         /// <summary>
@@ -32,7 +34,8 @@
         [Description("Gets or sets a FrameworkElement value that represents a non-client title bar area except the buttons area.")]
         public FrameworkElement TitleBar
         {
-            get => (FrameworkElement)GetValue(TitleBarProperty); set => SetValue(TitleBarProperty, value);
+            get => (FrameworkElement)GetValue(TitleBarProperty);
+            set => SetValue(TitleBarProperty, value);
         }
 
         /// <summary>
@@ -42,7 +45,8 @@
         [Description("Obtem ou define a altura da barra de título (parte não cliente).")]
         public double TitleBarHeight
         {
-            get => (double)GetValue(TitleBarHeightProperty); set => SetValue(TitleBarHeightProperty, value);
+            get => (double)GetValue(TitleBarHeightProperty);
+            set => SetValue(TitleBarHeightProperty, value);
         }
 
         /// <summary>
@@ -51,7 +55,8 @@
         [Description("Obtem ou define um pincel que descreve a cor do primeiro plano da barra de título da janela.")]
         public Brush TitleBarForeground
         {
-            get => (Brush)GetValue(TitleBarForegroundProperty); set => SetValue(TitleBarForegroundProperty, value);
+            get => (Brush)GetValue(TitleBarForegroundProperty);
+            set => SetValue(TitleBarForegroundProperty, value);
         }
 
         /// <summary>
@@ -61,7 +66,8 @@
         [Description("Gets or sets a Boolean value representing whether or not the title bar foreground will automatically adapt to a new background.")]
         public bool TitleBarForegroundIsAutomated
         {
-            get => (bool)GetValue(TitleBarForegroundIsAutomatedProperty); set => SetValue(TitleBarForegroundIsAutomatedProperty, value);
+            get => (bool)GetValue(TitleBarForegroundIsAutomatedProperty);
+            set => SetValue(TitleBarForegroundIsAutomatedProperty, value);
         }
 
         /// <summary>
@@ -70,7 +76,8 @@
         [Description("Obtem ou define um pincel que descreve o plano de fundo da barra do título da janela.")]
         public Brush TitleBarBackground
         {
-            get => (Brush)GetValue(TitleBarBackgroundProperty); set => SetValue(TitleBarBackgroundProperty, value);
+            get => (Brush)GetValue(TitleBarBackgroundProperty);
+            set => SetValue(TitleBarBackgroundProperty, value);
         }
 
         /// <summary>
@@ -79,7 +86,8 @@
         [Description("Obtem ou define um pincel que representa o plano de fundo da camada que cobre a janela.")]
         public Brush OverlayBackground
         {
-            get => (Brush)GetValue(OverlayBackgroundProperty); set => SetValue(OverlayBackgroundProperty, value);
+            get => (Brush)GetValue(OverlayBackgroundProperty);
+            set => SetValue(OverlayBackgroundProperty, value);
         }
 
         /// <summary>
@@ -89,7 +97,8 @@
         [Description("Gets or sets the visibility of the layer that covers the window.")]
         public bool ShowCustomDialog
         {
-            get => (bool)GetValue(ShowCustomDialogProperty); set => SetValue(ShowCustomDialogProperty, value);
+            get => (bool)GetValue(ShowCustomDialogProperty);
+            set => SetValue(ShowCustomDialogProperty, value);
         }
 
         /// <summary>
@@ -99,7 +108,8 @@
         [Description("Gets or sets a FrameworkElement that represents an interactive modal control that will only be visible if the ShowCustomDialog property is true.")]
         public FrameworkElement CustomDialog
         {
-            get => (FrameworkElement)GetValue(CustomDialogProperty); set => SetValue(CustomDialogProperty, value);
+            get => (FrameworkElement)GetValue(CustomDialogProperty);
+            set => SetValue(CustomDialogProperty, value);
         }
 
         /// <summary>
@@ -108,7 +118,8 @@
         [Description("Gets or sets a brush representing the background of the CustomDialog element.")]
         public Brush CustomDialogBackground
         {
-            get => (Brush)GetValue(CustomDialogBackgroundProperty); set => SetValue(CustomDialogBackgroundProperty, value);
+            get => (Brush)GetValue(CustomDialogBackgroundProperty);
+            set => SetValue(CustomDialogBackgroundProperty, value);
         }
 
         /// <summary>
@@ -118,7 +129,8 @@
         [Description("Gets or sets a double value representing the minimum title bar's height.")]
         public double MinTitleBarHeight
         {
-            get => (double)GetValue(MinTitleBarHeightProperty); set => SetValue(MinTitleBarHeightProperty, value);
+            get => (double)GetValue(MinTitleBarHeightProperty);
+            set => SetValue(MinTitleBarHeightProperty, value);
         }
 
         /// <summary>
@@ -128,7 +140,8 @@
         [Description("Gets or sets a Boolean value representing whether KioskMode is turned on/off.")]
         public bool KioskMode
         {
-            get => (bool)GetValue(KioskModeProperty); set => SetValue(KioskModeProperty, value);
+            get => (bool)GetValue(KioskModeProperty);
+            set => SetValue(KioskModeProperty, value);
         }
 
         /// <summary>
@@ -138,7 +151,8 @@
         [Description("Gets or sets a key combination that turns off kiosk mode.")]
         public KioskExitKeyGesture KioskModeExitKeyGesture
         {
-            get => (KioskExitKeyGesture)GetValue(KioskModeExitKeyGestureProperty); set => SetValue(KioskModeExitKeyGestureProperty, value);
+            get => (KioskExitKeyGesture)GetValue(KioskModeExitKeyGestureProperty);
+            set => SetValue(KioskModeExitKeyGestureProperty, value);
         }
     }
 }

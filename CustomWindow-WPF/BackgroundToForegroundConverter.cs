@@ -10,7 +10,7 @@
     /// <summary>
     /// Defines the <see cref="BackgroundToForegroundConverter" />.
     /// </summary>
-    public class BackgroundToForegroundConverter : IValueConverter, IMultiValueConverter
+    internal class BackgroundToForegroundConverter : IValueConverter, IMultiValueConverter
     {
         /// <summary>
         /// Defines the _instance.
@@ -82,10 +82,7 @@
         {
             Brush? bgBrush = values.Length > 0 ? values[0] as Brush : null;
             Brush? titleBrush = values.Length > 1 ? values[1] as Brush : null;
-#pragma warning disable CS8604 // Possível argumento de referência nula.
-            // bgBrush may be null however the converter always returns a non-null Brush.
             return titleBrush ?? Convert(bgBrush, targetType, parameter, culture);
-#pragma warning restore CS8604 // Possível argumento de referência nula.
         }
 
         /// <summary>

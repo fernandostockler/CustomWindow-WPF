@@ -24,4 +24,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\CustomWindow v1 Customizable area in orange.png" />
+    <None Remove="Images\CustomWindow v1 CustomWindow gray sample1.png" />
+    <None Remove="Images\CustomWindow v1 CustomWindow sample1.png" />
+    <None Remove="Images\CustomWindow v1 CustomWindow search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Docs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\CustomWindow v1 Customizable area in orange.png" />
+    <Resource Include="Images\CustomWindow v1 CustomWindow gray sample1.png" />
+    <Resource Include="Images\CustomWindow v1 CustomWindow sample1.png" />
+    <Resource Include="Images\CustomWindow v1 CustomWindow search.png" />
+  </ItemGroup>
+
 </Project>

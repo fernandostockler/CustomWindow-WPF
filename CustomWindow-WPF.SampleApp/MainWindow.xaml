@@ -12,7 +12,7 @@
     Height="450"
     Background="Silver"
     BorderThickness="0"
-    Icon="/Death Star - 1st (2015_09_19 07_11_09 UTC).ico"
+    Icon="/Death Star.ico"
     TitleBarHeight="46"
     mc:Ignorable="d">
     <cw:CustomWindow.TitleBar>

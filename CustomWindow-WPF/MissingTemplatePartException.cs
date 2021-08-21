@@ -17,7 +17,10 @@
         /// <summary>
         /// Gets the PartType.
         /// </summary>
-        public Type? PartType { get; private set; }
+        public Type? PartType
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MissingTemplatePartException"/> class.
