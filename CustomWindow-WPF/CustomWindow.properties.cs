@@ -28,7 +28,7 @@
         }
 
         /// <summary>
-        /// Gets or sets a FrameworkElement value that represents a non-client title bar area except the buttons area...
+        /// Gets or sets a FrameworkElement value that represents a non-client title bar area except the buttons area.
         /// </summary>
         [Category(Comum)]
         [Description("Gets or sets a FrameworkElement value that represents a non-client title bar area except the buttons area.")]

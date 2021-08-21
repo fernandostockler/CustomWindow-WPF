@@ -19,4 +19,9 @@ It is a window that allows customization of the non-client area, has a kiosk mod
         <img src="Images/CustomWindow v1 CustomWindow gray sample1.png" style="width:100%;height: auto;" />
     </td>
   </tr>
+  <tr>
+    <td colspan="2">
+        <img src="Images/CustomWindow v1 CustomWindow search xaml.png" />
+    </td>
+  </tr>
 </table>
