@@ -1,7 +1,6 @@
 # [CustomWindow-WPF](CustomWindow-WPF/Docs/CustomWindow.md)
 It is a window that allows customization of the non-client area, has a kiosk mode and has a mechanism for displaying modal content
 
-<br/>
 
 <table>
   <tr>
@@ -18,12 +17,38 @@ It is a window that allows customization of the non-client area, has a kiosk mod
         <img src="CustomWindow-WPF/Images/CustomWindow v1 CustomWindow search.png" style="width:100%;height: auto;" />
     </td>
     <td>
-        <img src="CustomWindow-WPF/Images/CustomWindow v1 CustomWindow gray sample1.png" style="width:100%;height: auto;" />
+        <img src="CustomWindow-WPF/Images/CustomWindow v2 dark with search and like button.png" style="width:100%;height: auto;" />
     </td>
   </tr>
-  <tr>
+  <!--<tr>
     <td colspan="2">
         <img src="CustomWindow-WPF/Images/CustomWindow v1 CustomWindow search xaml.png" />
     </td>
-  </tr>
-</table>
+  </tr>-->
+<table>
+
+
+
+Markup code in CustomWindowSample.xaml
+![Custom Window V2 Markup Code](CustomWindow-WPF/Images/CustomWindow%20v2%20markup%20code.png)
+
+Code behind
+
+
+    public partial class CustomWindowSample : CustomWindow
+    {
+        public CustomWindowSample()
+        {
+            InitializeComponent();
+        }
+
+        private void LikeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                button.Content = button.Content.ToString() == "\uE00B"
+                    ? "\uE006"
+                    : "\uE00B";
+            }
+        }
+    }
