@@ -1,4 +1,4 @@
-﻿namespace CustomWindow_WPF;
+﻿namespace CustomWindow_WPF.Converters;
 
 using System;
 using System.Globalization;
@@ -19,7 +19,7 @@ internal class DoubleToGridlenghtConverter : IValueConverter
     /// <param name="culture">The culture<see cref="CultureInfo"/>.</param>
     /// <returns>The <see cref="object"/>.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        => (value is double height)
+        => value is double height
             ? new GridLength(height)
             : value;
 

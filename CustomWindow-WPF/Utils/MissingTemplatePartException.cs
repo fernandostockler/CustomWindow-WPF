@@ -1,4 +1,4 @@
-﻿namespace CustomWindow_WPF;
+﻿namespace CustomWindow_WPF.Utils;
 
 using System;
 using System.Runtime.Serialization;

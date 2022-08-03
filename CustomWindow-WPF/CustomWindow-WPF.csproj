@@ -43,7 +43,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="beaker_114x128.png" Pack="true" PackagePath="\" />
     <None Remove="Images\CustomWindow v1 Customizable area in orange.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow gray sample1.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow sample1.png" />

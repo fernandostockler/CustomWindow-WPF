@@ -10,7 +10,7 @@ public partial class CustomWindowSample : CustomWindow
 {
     public CustomWindowSample()
     {
-        InitializeComponent();
+        InitializeComponent(); //utilities
     }
 
     private void LikeButton_Click(object sender, RoutedEventArgs e)

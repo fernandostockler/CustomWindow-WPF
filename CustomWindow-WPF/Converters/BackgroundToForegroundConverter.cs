@@ -1,4 +1,4 @@
-﻿namespace CustomWindow_WPF;
+﻿namespace CustomWindow_WPF.Converters;
 
 using System;
 using System.Globalization;
@@ -73,9 +73,9 @@ internal class BackgroundToForegroundConverter : IValueConverter, IMultiValueCon
     {
         const int nThreshold = 86; //105;
 
-        int bgDelta = System.Convert.ToInt32((bg.R * 0.299) + (bg.G * 0.587) + (bg.B * 0.114));
+        int bgDelta = System.Convert.ToInt32(bg.R * 0.299 + bg.G * 0.587 + bg.B * 0.114);
 
-        Color foreColor = (255 - bgDelta < nThreshold)
+        Color foreColor = 255 - bgDelta < nThreshold
             ? Colors.Black
             : Colors.White;
 

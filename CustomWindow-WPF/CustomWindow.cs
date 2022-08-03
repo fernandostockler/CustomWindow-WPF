@@ -1,5 +1,6 @@
 ﻿namespace CustomWindow_WPF;
 
+using CustomWindow_WPF.Utils;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -188,7 +189,7 @@ public partial class CustomWindow : Window
 
         propertyChangedCallback: (d, e) =>
         {
-            Brush? newIdealForeground = BackgroundToForegroundConverter.Instance
+            Brush? newIdealForeground = Converters.BackgroundToForegroundConverter.Instance
                 .Convert(value: (Brush)e.NewValue,
                     targetType: typeof(Brush),
                     parameter: new object(),
