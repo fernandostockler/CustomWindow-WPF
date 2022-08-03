@@ -30,7 +30,8 @@ It is a window that allows customization of the non-client area, has a kiosk mod
 
 Markup code in CustomWindowSample.xaml
 ![Custom Window V2 Markup Code](Images/CustomWindow%20v2%20markup%20code.png)
-  Code behind
+
+Code behind
 
 
     public partial class CustomWindowSample : CustomWindow
