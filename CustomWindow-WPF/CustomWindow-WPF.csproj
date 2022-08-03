@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <RootNamespace>CustomWindow_WPF</RootNamespace>
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
@@ -12,38 +12,49 @@
     <PackageTags>wpf;custom-window;kiosk-window;modal-window</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>beaker_114x128.png</PackageIcon>
+    <PackageIcon>extensions.png</PackageIcon>
     <RepositoryUrl>https://github.com/fernandostockler/CustomWindow-WPF</RepositoryUrl>
     <Summary>It is a window that allows customization of the non-client area, has a kiosk mode and has a mechanism for displaying modal content</Summary>
     <Title>CustomWindow-WPF</Title>
-
+    <ApplicationIcon>extensions .ico</ApplicationIcon>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Now using .NET 7</PackageReleaseNotes>
+    <IncludeSymbols>True</IncludeSymbols>
+    <Version>2.0.0.0</Version>
+    <PackageProjectUrl>https://fernandostockler.github.io/CustomWindow-WPF/</PackageProjectUrl>
+    <Copyright>Fernando Stockler de Lima</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\..\..\OneDrive\Desktop\extensions.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="beaker_114x128.png" Pack="true" PackagePath="\" />
     <None Remove="Images\CustomWindow v1 Customizable area in orange.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow gray sample1.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow sample1.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow search xaml.png" />
     <None Remove="Images\CustomWindow v1 CustomWindow search.png" />
-    <None Remove="ReadMe.md" />
+    <None Remove="Images\CustomWindow v2 dark with search and like button.png" />
+    <None Remove="Images\CustomWindow v2 markup code.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ReadMe.md" >
-      <Pack>true</Pack>
-      <PackagePath>\</PackagePath>
-    </Content>
+    <Content Include="extensions .ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +63,15 @@
     <Resource Include="Images\CustomWindow v1 CustomWindow sample1.png" />
     <Resource Include="Images\CustomWindow v1 CustomWindow search xaml.png" />
     <Resource Include="Images\CustomWindow v1 CustomWindow search.png" />
+    <Resource Include="Images\CustomWindow v2 dark with search and like button.png" />
+    <Resource Include="Images\CustomWindow v2 markup code.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ReadMe.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

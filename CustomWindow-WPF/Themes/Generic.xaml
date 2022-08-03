@@ -51,8 +51,7 @@
         </Setter>
     </Style>
 
-    <Style
-        x:Key="CloseButtonStyle"
+    <Style x:Key="CloseButtonStyle"
         BasedOn="{StaticResource WindowButtonsStyle}"
         TargetType="Button">
         <Setter Property="Template">
@@ -92,8 +91,7 @@
 
     <ControlTemplate x:Key="CustomWindowTemplate" TargetType="local:CustomWindow">
         <Grid>
-            <Border
-                x:Name="OutterBorder"
+            <Border x:Name="OutterBorder"
                 Margin="{TemplateBinding Margin}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -111,8 +109,7 @@
                             <ColumnDefinition x:Name="ButtonsColumnDefinition" Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <ContentControl
-                            x:Name="PART_TitleBar"
+                        <ContentControl x:Name="PART_TitleBar"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"
                             Panel.ZIndex="1"
@@ -126,16 +123,14 @@
                                 <ColumnDefinition x:Name="CloseButtonColumn" Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Button
-                                x:Name="PART_MinimizeButton"
+                            <Button x:Name="PART_MinimizeButton"
                                 Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
                                 Content="&#xE921;"
                                 Foreground="{TemplateBinding TitleBarForeground}"
                                 Style="{StaticResource WindowButtonsStyle}"
                                 ToolTip="Minimizar" />
 
-                            <Button
-                                x:Name="PART_MaximizeRestoreButton"
+                            <Button x:Name="PART_MaximizeRestoreButton"
                                 Grid.Column="1"
                                 Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
                                 Content="&#xE922;"
@@ -143,8 +138,7 @@
                                 Style="{StaticResource WindowButtonsStyle}"
                                 ToolTip="Maximizar" />
 
-                            <Button
-                                Name="PART_CloseButton"
+                            <Button Name="PART_CloseButton"
                                 Grid.Column="2"
                                 Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
                                 Content="&#xE8BB;"
@@ -154,8 +148,7 @@
                         </Grid>
                     </Grid>
 
-                    <Grid
-                        x:Name="ContentGrid"
+                    <Grid x:Name="ContentGrid"
                         Grid.Row="1"
                         Margin="0,-0.6,0,0"
                         Background="{TemplateBinding Background}">
@@ -164,8 +157,7 @@
                         </AdornerDecorator>
                     </Grid>
 
-                    <Grid
-                        x:Name="OverlayGrid"
+                    <Grid x:Name="OverlayGrid"
                         Grid.RowSpan="2"
                         Background="{TemplateBinding OverlayBackground}"
                         Visibility="Collapsed" />
@@ -176,8 +168,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Grid
-                            x:Name="OverlayContentGrid"
+                        <Grid x:Name="OverlayContentGrid"
                             Grid.Row="1"
                             Background="{TemplateBinding CustomDialogBackground}"
                             Opacity="0.0"

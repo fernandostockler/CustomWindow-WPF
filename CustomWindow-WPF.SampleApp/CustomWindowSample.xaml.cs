@@ -1,27 +1,25 @@
-﻿namespace CustomWindow_WPF.SampleApp
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Shapes;
+﻿namespace CustomWindow_WPF.SampleApp;
 
-    /// <summary>
-    /// Lógica interna para CustomWindowSample.xaml
-    /// </summary>
-    public partial class CustomWindowSample : CustomWindow
+using System.Windows;
+using System.Windows.Controls;
+
+/// <summary>
+/// Lógica interna para CustomWindowSample.xaml
+/// </summary>
+public partial class CustomWindowSample : CustomWindow
+{
+    public CustomWindowSample()
     {
-        public CustomWindowSample()
+        InitializeComponent();
+    }
+
+    private void LikeButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button)
         {
-            InitializeComponent();
+            button.Content = button.Content.ToString() == "\uE00B"
+                ? "\uE006"
+                : "\uE00B";
         }
     }
 }
