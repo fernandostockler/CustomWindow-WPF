@@ -7,19 +7,19 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Authors>fernandostockler</Authors>
+    <Authors>Fernando Stockler de Lima</Authors>
     <Description>It is a window that allows customization of the non-client area, has a kiosk mode and has a mechanism for displaying modal content.</Description>
     <PackageTags>wpf;custom-window;kiosk-window;modal-window</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>extensions.png</PackageIcon>
     <RepositoryUrl>https://github.com/fernandostockler/CustomWindow-WPF</RepositoryUrl>
-    <Summary>It is a window that allows customization of the non-client area, has a kiosk mode and has a mechanism for displaying modal content</Summary>
-    <Title>CustomWindow-WPF</Title>
+    <Summary>It is a window that allows customization of the non-client area, has a kiosk mode and a mechanism for displaying modal content</Summary>
+    <Title>Customizable window in the non-client area and other facilities.</Title>
     <ApplicationIcon>extensions .ico</ApplicationIcon>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Now using .NET 7</PackageReleaseNotes>
+    <PackageReleaseNotes>Now using .net 7.0</PackageReleaseNotes>
     <IncludeSymbols>True</IncludeSymbols>
     <Version>2.0.0.0</Version>
     <PackageProjectUrl>https://fernandostockler.github.io/CustomWindow-WPF/</PackageProjectUrl>
