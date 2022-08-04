@@ -12,22 +12,17 @@ internal class MissingTemplatePartException : Exception
     /// <summary>
     /// Gets the PartName.
     /// </summary>
-    public string PartName { get; private set; } = string.Empty;
+    public string PartName { get; init; } = string.Empty;
 
     /// <summary>
     /// Gets the PartType.
     /// </summary>
-    public Type? PartType
-    {
-        get; private set;
-    }
+    public Type? PartType { get; init; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MissingTemplatePartException"/> class.
     /// </summary>
-    public MissingTemplatePartException()
-    {
-    }
+    public MissingTemplatePartException() { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MissingTemplatePartException"/> class.

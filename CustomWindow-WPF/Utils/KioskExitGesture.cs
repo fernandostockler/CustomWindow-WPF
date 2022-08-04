@@ -7,31 +7,29 @@ using System.Windows.Input;
 /// <summary>
 /// This class represents a keyboard key and its modifiers.
 /// </summary>
-public class KioskExitKeyGesture
+public class KioskExitGesture
 {
     /// <summary>
     /// Gets the ModifierKeys.
     /// </summary>
-    public ModifierKeys[] ModifierKeys { get; private set; } = Array.Empty<ModifierKeys>();
+    public ModifierKeys[] ModifierKeys { get; init; } = Array.Empty<ModifierKeys>();
 
     /// <summary>
     /// Gets the Key.
     /// </summary>
-    public Key Key { get; private set; } = Key.None;
+    public Key Key { get; init; } = Key.None;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="KioskExitKeyGesture"/> class.
+    /// Initializes a new instance of the <see cref="KioskExitGesture"/> class.
     /// </summary>
-    public KioskExitKeyGesture()
-    {
-    }
+    public KioskExitGesture() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="KioskExitKeyGesture"/> class.
+    /// Initializes a new instance of the <see cref="KioskExitGesture"/> class.
     /// </summary>
     /// <param name="key">The key<see cref="Key"/>.</param>
     /// <param name="modifierKeys">The modifierKeys<see cref="ModifierKeys"/>.</param>
-    public KioskExitKeyGesture(Key key, ModifierKeys[] modifierKeys)
+    public KioskExitGesture(Key key, ModifierKeys[] modifierKeys)
     {
         Key = key;
         ModifierKeys = modifierKeys;

@@ -268,23 +268,22 @@ public partial class CustomWindow : Window
     /// <summary>
     /// The OnKioskModeChanged.
     /// </summary>
-    /// <param name="newValue">The newValue<see cref="bool"/>.</param>
-    private void OnKioskModeChanged(bool newValue)
+    /// <param name="isKioskMode">The newValue <see cref="bool"/>.</param>
+    private void OnKioskModeChanged(bool isKioskMode)
     {
-        if (IsLoaded == false)
-            return;
+        if (!IsLoaded) return;
 
-        if (newValue)
+        if (isKioskMode) EnterKioskMode(); else LeaveKioskMode();
+
+        void EnterKioskMode()
         {
-            //todo: verify this works
-            WindowStyle = WindowStyle.None;
-            WindowState = WindowState.Normal;
             WindowState = WindowState.Maximized;
             MinTitleBarHeight = 0.0;
             OriginalTitleBarHeight = TitleBarHeight;
             TitleBarHeight = 0.0;
         }
-        else
+
+        void LeaveKioskMode()
         {
             WindowStyle = WindowStyle.SingleBorderWindow;
             MinTitleBarHeight = 36.0;
@@ -293,17 +292,18 @@ public partial class CustomWindow : Window
     }
 
     /// <summary>
-    /// Identifies the <see cref="KioskModeExitKeyGesture"/> dependency property..
+    /// Identifies the <see cref="KioskExitGesture"/> dependency property..
     /// </summary>
-    public static readonly DependencyProperty KioskModeExitKeyGestureProperty = DependencyProperty.Register(
-        name: nameof(KioskModeExitKeyGesture),
-        propertyType: typeof(KioskExitKeyGesture),
+    public static readonly DependencyProperty KioskExitGestureProperty = DependencyProperty.Register(
+        name: nameof(KioskExitGesture),
+        propertyType: typeof(KioskExitGesture),
         ownerType: typeof(CustomWindow),
         typeMetadata: new PropertyMetadata(
-        defaultValue: new KioskExitKeyGesture(Key.End, new ModifierKeys[] { ModifierKeys.Shift, ModifierKeys.Alt })));
-
-
-
+        defaultValue: new KioskExitGesture(
+            key: Key.End,
+            modifierKeys: new ModifierKeys[] {
+                ModifierKeys.Shift,
+                ModifierKeys.Alt })));
 
     /// <summary>
     /// The CloseWindow.
@@ -357,24 +357,15 @@ public partial class CustomWindow : Window
     /// <param name="e">A <see cref="KeyEventArgs"/>.</param>
     protected override void OnKeyDown(KeyEventArgs e)
     {
-        base.OnKeyDown(e);
-
         CheckKioskExitKeyGesture(e);
-        CheckForbiddenKeys(e);
 
-        void CheckForbiddenKeys(KeyEventArgs e)
-        {
-            // TODO: estudar como evitar
-            if (e.Key == Key.LWin || e.SystemKey == Key.LWin || e.Key == Key.RWin || e.SystemKey == Key.RWin)
-            {
-                e.Handled = true;
-            }
-        }
+        base.OnKeyDown(e);
 
         void CheckKioskExitKeyGesture(KeyEventArgs e)
         {
-            KioskExitKeyGesture k = KioskModeExitKeyGesture;
-            bool match = KioskModeExitKeyGesture.ModifierKeys.Length switch
+            KioskExitGesture k = KioskExitGesture;
+
+            bool match = KioskExitGesture.ModifierKeys.Length switch
             {
                 1 => k.ModifierKeys[0] == (e.KeyboardDevice.Modifiers & k.ModifierKeys[0]),
 
@@ -393,7 +384,7 @@ public partial class CustomWindow : Window
                 _ => false,
             };
 
-            if (match && (e.Key == KioskModeExitKeyGesture.Key || e.SystemKey == KioskModeExitKeyGesture.Key))
+            if (match && (e.Key == KioskExitGesture.Key || e.SystemKey == KioskExitGesture.Key))
             {
                 e.Handled = true;
                 KioskMode = false;

@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="customWindow"
     Title="CustomWindow sample"
-    Width="800" Height="450"
+    Width="800"
+    Height="450"
     Background="#222"
     Icon="/Death Star.ico"
     TitleBarBackground="#222"
@@ -23,33 +24,56 @@
                 <ColumnDefinition Width="30" />
             </Grid.ColumnDefinitions>
             <Image
-                Grid.Column="0" Margin="5" VerticalAlignment="Center"
+                Grid.Column="0"
+                Margin="5"
+                VerticalAlignment="Center"
                 Source="{Binding Icon, ElementName=customWindow}" />
             <TextBlock
-                Grid.Column="1" Margin="7,0,0,0" VerticalAlignment="Center" FontSize="16"
+                Grid.Column="1"
+                Margin="7,0,0,0"
+                VerticalAlignment="Center"
+                FontSize="16"
                 Text="{Binding Title, ElementName=customWindow}" />
             <Border
-                Grid.Column="2" Margin="0,11,10,0" VerticalAlignment="Top" BorderBrush="LightGray" BorderThickness="1">
+                Grid.Column="2"
+                Margin="0,11,10,0"
+                VerticalAlignment="Top"
+                BorderBrush="LightGray"
+                BorderThickness="1">
                 <StackPanel Orientation="Horizontal" TextElement.Foreground="Silver">
                     <TextBox
-                        Width="100" BorderThickness="0" Foreground="Silver" Text="Search"
+                        Width="100"
                         Background="{Binding ElementName=customWindow, Path=TitleBarBackground}"
+                        BorderThickness="0"
+                        Foreground="Silver"
+                        Text="Search"
                         WindowChrome.IsHitTestVisibleInChrome="True" />
                     <TextBlock
-                        Margin="3" FontFamily="Segoe MDL2 Assets" Text="&#xE11A;" />
+                        Margin="3"
+                        FontFamily="Segoe MDL2 Assets"
+                        Text="&#xE11A;" />
                 </StackPanel>
             </Border>
             <Button
                 x:Name="LikeButton"
-                Grid.Column="3" Height="22" Margin="0,10,0,0" VerticalAlignment="Top"
-                Background="Transparent" Click="LikeButton_Click"  Content="&#xE006;"
-                FontFamily="Segoe MDL2 Assets" Foreground="#FFE9E9E9"
+                Grid.Column="3"
+                Height="22"
+                Margin="0,10,0,0"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Click="LikeButton_Click"
+                Content="&#xE006;"
+                FontFamily="Segoe MDL2 Assets"
+                Foreground="#FFE9E9E9"
                 WindowChrome.IsHitTestVisibleInChrome="True" />
         </Grid>
     </cw:CustomWindow.TitleBar>
     <Grid>
         <TextBlock
-            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"
-            Foreground="#FF50BB22" Text="This is a CustomWindow" />
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="32"
+            Foreground="#FF50BB22"
+            Text="This is a CustomWindow" />
     </Grid>
 </cw:CustomWindow>

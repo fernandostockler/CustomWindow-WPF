@@ -147,9 +147,9 @@ public partial class CustomWindow
     /// </summary>
     [Category(Comum)]
     [Description("Gets or sets a key combination that turns off kiosk mode.")]
-    public KioskExitKeyGesture KioskModeExitKeyGesture
+    public KioskExitGesture KioskExitGesture
     {
-        get => (KioskExitKeyGesture)GetValue(KioskModeExitKeyGestureProperty);
-        set => SetValue(KioskModeExitKeyGestureProperty, value);
+        get => (KioskExitGesture)GetValue(KioskExitGestureProperty);
+        set => SetValue(KioskExitGestureProperty, value);
     }
 }

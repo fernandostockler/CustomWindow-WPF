@@ -20,6 +20,8 @@ public partial class CustomWindowSample : CustomWindow
             button.Content = button.Content.ToString() == "\uE00B"
                 ? "\uE006"
                 : "\uE00B";
+
+            if (!KioskMode) KioskMode = true;
         }
     }
 }
