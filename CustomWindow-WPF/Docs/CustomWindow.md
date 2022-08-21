@@ -14,5 +14,4 @@ TitleBarBackground | Gets or sets the brush that describes the background of the
 TitleBarBorderThickness | Gets or sets the thickness of the border of the window's title bar.
 TitleBarBorderBrush | Gets or sets the brush that describes the border of the window's title bar.
 
-
-![Custom Window V1 Customizable Area In Orange](../Images/CustomWindow%20v1%20Customizable%20area%20in%20orange.png)
+![CustomWindow v1 Customizable area in orange](https://user-images.githubusercontent.com/10555640/185812948-96980182-baa6-4441-975b-938b6fdb4abe.png)
