@@ -21,12 +21,14 @@
     <ApplicationIcon>extensions .ico</ApplicationIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Fernando Stockler de Lima</Copyright>
+	  <LangVersion>latest</LangVersion>
 
 	<RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/fernandostockler/CustomWindow-WPF</RepositoryUrl>
     <PackageProjectUrl>https://fernandostockler.github.io/CustomWindow-WPF/</PackageProjectUrl>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <IncludeSymbols>True</IncludeSymbols>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
